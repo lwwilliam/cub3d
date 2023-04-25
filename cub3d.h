@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/25 22:56:41 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/26 03:17:57 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		identifier_check(t_map *map, char *id);
 int		map_size(t_map *map, int fd);
 int		map_init(t_map *map, char *file);
 int		map_check(t_map *map);
+int		map_assign(t_map *map, int fd);
 
 void	free_funct(char **array);
 

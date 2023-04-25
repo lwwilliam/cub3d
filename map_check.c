@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/26 01:51:15 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/26 03:38:45 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	wall_side(t_map *map)
 		x = 0;
 		while (map->map[y][x++])
 		{
-			if (x != 0 && y != 0 && x != ft_strlen(map->map[y]) && y != map->map_height)
+			if (x != 0 && y != 0 && x != ft_strlen(map->map[y])
+				&& y != map->map_height - 1)
 			{
 				tmp = ft_strtrim(map->map[y], " ");
 				if (tmp[0] != '1' && tmp[ft_strlen(tmp)] != '1')
@@ -79,13 +80,20 @@ is not closed by walls\033[0m\n", 2);
 	return (0);
 }
 
-int	valid_character(char c)
+int	valid_character(t_map *map, char c)
 {
 	if (c != '0' && c != '1' && c != 'N' && c != 'S'
 		&& c != 'E' && c != 'W' && c != ' ')
 	{
 		ft_putstr_fd("\033[0;31mError!\nMap contains \
 invalid character\033[0m\n", 2);
+		return (1);
+	}
+	if (!map->north_texture[0] || !map->south_texture[0] 
+		|| !map->west_texture[0] || !map->east_texture[0] 
+		|| !map->floor_colour[0] || !map->ceilling_colour[0])
+	{
+		ft_putstr_fd("\033[0;31mError!\nError In File\033[0m\n", 2);
 		return (1);
 	}
 	return (0);
@@ -105,7 +113,7 @@ int	map_check(t_map *map)
 			return (1);
 		while (map->map[y][x])
 		{
-			if (valid_character(map->map[y][x]) == 1)
+			if (valid_character(map, map->map[y][x]) == 1)
 				return (1);
 			x++;
 		}

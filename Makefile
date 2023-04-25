@@ -6,7 +6,7 @@
 #    By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 15:25:11 by lwilliam          #+#    #+#              #
-#    Updated: 2023/04/26 02:06:07 by lwilliam         ###   ########.fr        #
+#    Updated: 2023/04/26 02:57:14 by lwilliam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ all : $(NAME)
 
 $(NAME): $(SRC)
 	make -C libft_gnl
-	$(GCC) $(CFLAGS) $(SRC) $(LIBFT) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(GCC) $(CFLAGS) $(SRC) $(LIBFT) -o $(NAME) #-fsanitize=address -g #-lmlx -framework OpenGL -framework AppKit
 
 clean : 
 	rm -f *.o
