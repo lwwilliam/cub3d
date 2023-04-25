@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/25 19:00:51 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/25 22:56:41 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include <unistd.h>
-# include <mlx.h>
+// # include <mlx.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include "./libft_gnl/libft.h"

@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:56:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/25 20:39:34 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/26 01:53:23 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,10 @@ int	map_init(t_map *map, char *file)
 	}
 	map->map_height -= 9;
 	if (map_check(map) == 1)
+	{
+		free_funct(map->map);
 		return (1);
+	}
 	return (0);
 }
 

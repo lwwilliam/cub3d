@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:54:57 by lwilliam          #+#    #+#             */
-/*   Updated: 2022/11/11 21:20:50 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/25 22:50:00 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ char	*get_line(char **str)
 		x++;
 	if ((*str)[x])
 	{
-		res = ft_substr(*str, 0, x + 1);
-		temp = ft_strdup(*str + x + 1);
+		res = ft_substr_gnl(*str, 0, x + 1);
+		temp = ft_strdup_gnl(*str + x + 1);
 		free_funct_gnl(str);
 		if (temp[0] != '\0')
 			*str = temp;
@@ -51,7 +51,7 @@ char	*get_line(char **str)
 	}
 	else
 	{
-		res = ft_strdup(*str);
+		res = ft_strdup_gnl(*str);
 		free_funct_gnl(str);
 	}
 	return (res);
@@ -73,11 +73,11 @@ char	*get_next_line(int fd)
 	{
 		buffer[x] = 0;
 		if (!res)
-			res = ft_strdup("");
+			res = ft_strdup_gnl("");
 		temp = ft_strjoin(res, buffer);
 		free_funct_gnl(&res);
 		res = temp;
-		if (ft_strchr(buffer, '\n'))
+		if (ft_strchr_gnl(buffer, '\n'))
 			break ;
 	}
 	free_funct_gnl(&buffer);
