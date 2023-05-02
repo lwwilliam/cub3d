@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 16:17:12 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/02 16:35:21 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ typedef struct s_map
 // struct for the game part of the project
 typedef struct s_cub
 {
+	void		*mlx;
+	void		*win;
 	long double	posx;
 	long double	posy;
 }	t_cub;
 
 /* GAME_INIT */
-void	game(t_map *map);
+void	game(t_map *map, t_cub *cub);
 
 /* MAIN */
 int		map_init(t_map *map, char *file);
