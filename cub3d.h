@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 15:27:21 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/02 15:41:33 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ typedef struct s_map
 	int		map_height;
 }	t_map;
 
-//map initialize
-int		colour(t_map *map, char *id);
-int		identifier_check(t_map *map, char *id);
-int		map_size(t_map *map, int fd);
+/* MAIN */
 int		map_init(t_map *map, char *file);
-int		map_check(t_map *map);
-int		map_assign(t_map *map, int fd);
-
 void	free_funct(char **array);
 
+/* MAP_CHECK */
+int		map_check(t_map *map);
+
+/* MAP_HANDLE */
+int		map_assign(t_map *map, int fd);
+int		map_size(t_map *map, int fd);
 #endif

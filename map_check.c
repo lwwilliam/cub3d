@@ -6,13 +6,13 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 15:30:23 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/02 15:37:33 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_middle(t_map *map, int h, int w)
+static int	check_middle(t_map *map, int h, int w)
 {
 	if (map->map[h + 1][w] != ' ' && map->map[h + 1][w] != '1')
 		return (1);
@@ -25,7 +25,7 @@ int	check_middle(t_map *map, int h, int w)
 	return (0);
 }
 
-int	wall_side(t_map *map)
+static int	wall_side(t_map *map)
 {
 	int		y;
 	int		x;
@@ -54,7 +54,7 @@ int	wall_side(t_map *map)
 	return (0);
 }
 
-int	wall(t_map *map, char *line, int current_width)
+static int	wall(t_map *map, char *line, int current_width)
 {
 	int	x;
 
@@ -81,7 +81,7 @@ is not closed by walls\033[0m\n", 2);
 	return (0);
 }
 
-int	valid_character(t_map *map, char c)
+static int	valid_character(t_map *map, char c)
 {
 	if (c != '0' && c != '1' && c != 'N' && c != 'S'
 		&& c != 'E' && c != 'W' && c != ' ')

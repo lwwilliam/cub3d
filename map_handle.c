@@ -6,13 +6,13 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:56:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 15:29:08 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/02 15:39:46 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	colour(t_map *map, char *id)
+static int	colour(t_map *map, char *id)
 {
 	if (!ft_strncmp(id, "F", 1))
 	{
@@ -27,7 +27,7 @@ int	colour(t_map *map, char *id)
 	return (1);
 }
 
-int	identifier_check(t_map *map, char *id)
+static int	identifier_check(t_map *map, char *id)
 {
 	if (!ft_strncmp(id, "NO", 2))
 	{
@@ -84,7 +84,7 @@ int	map_size(t_map *map, int fd)
 	return (0);
 }
 
-int	assign_help(t_map *map, char *line)
+static int	assign_help(t_map *map, char *line)
 {
 	if (ft_strchr(line, '\t'))
 	{
