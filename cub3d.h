@@ -6,16 +6,15 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 16:13:26 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/02 16:17:12 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-
 # include <unistd.h>
-// # include <mlx.h>
+# include <mlx.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -30,20 +29,17 @@
 
 typedef struct s_map
 {
-	//identifiers ->>
 	char	*north_texture;
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
 	char	*floor_colour;
 	char	*ceilling_colour;
-	// <<- identifiers
-	int		posx;
-	int		posy;
+	int		map_posx;
+	int		map_posy;
 	char	**map;
 	int		map_height;
 }	t_map;
-
 
 // struct for the game part of the project
 typedef struct s_cub

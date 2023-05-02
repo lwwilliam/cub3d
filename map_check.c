@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 16:10:52 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/02 16:17:26 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,12 @@ int	map_check(t_map *map)
 			if (map->map[y][x] == 'N' || map->map[y][x] == 'S'
 				|| map->map[y][x] == 'E' || map->map[y][x] == 'W')
 			{
-				map->posx = x;
-				map->posy = y;
+				map->map_posx = x;
+				map->map_posy = y;
 			}
 			x++;
 		}
 		y++;
 	}
-	printf("x:%i | y:%i\n", map->posx, map->posy);
 	return (0);
 }
