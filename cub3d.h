@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/26 03:17:57 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:27:21 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+
 # include <unistd.h>
 // # include <mlx.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include "./libft_gnl/libft.h"
-# include "./libft_gnl/gnl/get_next_line.h"
+# include <stdio.h>
+# include "./libft/includes/libft.h"
+# include "./libft/includes/get_next_line.h"
 
 typedef struct s_map
 {
