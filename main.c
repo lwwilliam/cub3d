@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/26 03:17:27 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:47:45 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ int	map_init(t_map *map, char *file)
 	return (0);
 }
 
-
 int	main(int ac, char **av)
 {
 	t_map	map;
 
+	if (ac != 2)
+		return (1);
 	if (!ft_strnstr(av[1], ".cub", ft_strlen(av[1])))
 		ft_putstr_fd("\033[0;31mError!\nInvalid File\033[0m\n", 2);
 	if (map_init(&map, av[1]) == 1)
 		return (1);
-	for(int i = 0; map.map[i]; i++)
-		printf("%s\n", map.map[i]);
+	game(&map);
 	return (0);
 }

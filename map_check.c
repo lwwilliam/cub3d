@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/26 03:38:45 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:38:02 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_middle(t_map *map, int h, int w)
+static int	check_middle(t_map *map, int h, int w)
 {
 	if (map->map[h + 1][w] != ' ' && map->map[h + 1][w] != '1')
 		return (1);
@@ -25,7 +25,7 @@ int	check_middle(t_map *map, int h, int w)
 	return (0);
 }
 
-int	wall_side(t_map *map)
+static int	wall_side(t_map *map)
 {
 	int		y;
 	int		x;
@@ -51,9 +51,10 @@ int	wall_side(t_map *map)
 			}
 		}
 	}
+	return (0);
 }
 
-int	wall(t_map *map, char *line, int current_width)
+static int	wall(t_map *map, char *line, int current_width)
 {
 	int	x;
 
@@ -80,7 +81,7 @@ is not closed by walls\033[0m\n", 2);
 	return (0);
 }
 
-int	valid_character(t_map *map, char c)
+static int	valid_character(t_map *map, char c)
 {
 	if (c != '0' && c != '1' && c != 'N' && c != 'S'
 		&& c != 'E' && c != 'W' && c != ' ')
@@ -89,8 +90,8 @@ int	valid_character(t_map *map, char c)
 invalid character\033[0m\n", 2);
 		return (1);
 	}
-	if (!map->north_texture[0] || !map->south_texture[0] 
-		|| !map->west_texture[0] || !map->east_texture[0] 
+	if (!map->north_texture[0] || !map->south_texture[0]
+		|| !map->west_texture[0] || !map->east_texture[0]
 		|| !map->floor_colour[0] || !map->ceilling_colour[0])
 	{
 		ft_putstr_fd("\033[0;31mError!\nError In File\033[0m\n", 2);
@@ -115,9 +116,16 @@ int	map_check(t_map *map)
 		{
 			if (valid_character(map, map->map[y][x]) == 1)
 				return (1);
+			if (map->map[y][x] == 'N' || map->map[y][x] == 'S'
+				|| map->map[y][x] == 'E' || map->map[y][x] == 'W')
+			{
+				map->posx = x;
+				map->posy = y;
+			}
 			x++;
 		}
 		y++;
 	}
+	printf("x:%i | y:%i\n", map->posx, map->posy);
 	return (0);
 }

@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+         #
+#    By: wting <wting@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 15:25:11 by lwilliam          #+#    #+#              #
-#    Updated: 2023/04/26 02:57:14 by lwilliam         ###   ########.fr        #
+#    Updated: 2023/05/02 15:47:58 by wting            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-SRC = main.c map_handle.c free.c map_check.c
+SRC = main.c map_handle.c free.c map_check.c map_util.c game_init.c
 		
 GCC = gcc 
 
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./libft_gnl/libft.a
 

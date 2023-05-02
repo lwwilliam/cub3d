@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:56:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/26 03:36:58 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:39:08 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	colour(t_map *map, char *id)
+static int	colour(t_map *map, char *id)
 {
 	if (!ft_strncmp(id, "F", 1))
 	{
@@ -27,7 +27,7 @@ int	colour(t_map *map, char *id)
 	return (1);
 }
 
-int	identifier_check(t_map *map, char *id)
+static int	identifier_check(t_map *map, char *id)
 {
 	if (!ft_strncmp(id, "NO", 2))
 	{
@@ -62,12 +62,7 @@ int	map_size(t_map *map, int fd)
 
 	width = 0;
 	height = 0;
-	map->north_texture = "";
-	map->south_texture = "";
-	map->west_texture = "";
-	map->east_texture = "";
-	map->floor_colour = "";
-	map->ceilling_colour = "";
+	init_map_vars(map);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -84,7 +79,7 @@ int	map_size(t_map *map, int fd)
 	return (0);
 }
 
-int	assign_help(t_map *map, char *line)
+static int	assign_help(t_map *map, char *line)
 {
 	if (ft_strchr(line, '\t'))
 	{

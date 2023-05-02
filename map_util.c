@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   map_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/23 11:15:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 15:22:23 by wting            ###   ########.fr       */
+/*   Created: 2023/05/02 15:18:04 by wting             #+#    #+#             */
+/*   Updated: 2023/05/02 15:39:13 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "cub3d.h"
 
-int	ft_strlen(const char *str)
+void	init_map_vars(t_map *map)
 {
-	int	x;
-
-	x = 0;
-	while (str[x] != '\0')
-		x++;
-	return (x);
+	map->north_texture = "";
+	map->south_texture = "";
+	map->west_texture = "";
+	map->east_texture = "";
+	map->floor_colour = "";
+	map->ceilling_colour = "";
 }
