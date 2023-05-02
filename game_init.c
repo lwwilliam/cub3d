@@ -6,16 +6,27 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/05/02 16:17:38 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/02 18:19:56 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+
+//posx = cos(angle) * SPEED
+//pos𝑦 = sin(angle) * SPEED
 static void	init_game_vars(t_cub *cub, t_map *map)
 {
-	cub->posx = (long double)map->map_posx * (long double)BLOCK_SIZE;
-	cub->posy = (long double)map->map_posy * (long double)BLOCK_SIZE;
+	cub->posx = (float)map->map_posx * (float)BLOCK_SIZE;
+	cub->posy = (float)map->map_posy * (float)BLOCK_SIZE;
+	if (map->direction == 'N')
+		cub->angle = 0;
+	else if (map->direction == 'S')
+		cub->angle = 180;
+	else if (map->direction == 'E')
+		cub->angle = 90;
+	else if (map->direction == 'W')
+		cub->angle = 270;
 }
 
 void	game(t_map *map)
@@ -23,5 +34,5 @@ void	game(t_map *map)
 	t_cub	cub;
 
 	init_game_vars(&cub, map);
-	printf("final pos:\nposx:%Lf | posy:%Lf\n", cub.posx, cub.posy);
+	printf("final pos:\nposx:%f | posy:%f\n", cub.posx, cub.posy);
 }
