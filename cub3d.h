@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 16:35:21 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:26:29 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <math.h>
 # include <unistd.h>
 # include <mlx.h>
 # include <stdlib.h>
@@ -26,6 +27,8 @@
 # define FALSE 0
 # define MAP_WIDTH 1920
 # define MAP_HEIGHT 1080
+# define FOV 90
+# define SPEED 2
 
 typedef struct s_map
 {
@@ -39,6 +42,7 @@ typedef struct s_map
 	int		map_posy;
 	char	**map;
 	int		map_height;
+	char	direction;
 }	t_map;
 
 // struct for the game part of the project
@@ -46,8 +50,9 @@ typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
-	long double	posx;
-	long double	posy;
+	float	posx;
+	float	posy;
+	float	angle;
 }	t_cub;
 
 /* GAME_INIT */
