@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:41:21 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/25 18:41:36 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:47:26 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,12 @@ void	free_funct(char **array)
 		tmp++;
 	}
 	free(array);
+}
+
+
+void	exit_free(t_master *master)
+{
+	free_funct(master->m_map->map);
+	ft_putendl_fd("keyboard interrupt", 2);
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:18:04 by wting             #+#    #+#             */
-/*   Updated: 2023/05/02 15:39:13 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/02 19:29:30 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	init_map_vars(t_map *map)
 	map->east_texture = "";
 	map->floor_colour = "";
 	map->ceilling_colour = "";
+	map->direction = 0;
 }

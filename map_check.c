@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 17:26:55 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/02 19:33:10 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	map_check(t_map *map)
 		x = 0;
 		if (wall(map, map->map[y], y) == 1)
 			return (1);
-		while (map->map[y][++x])
+		while (map->map[y][x])
 		{
 			if (valid_character(map, map->map[y][x]) == 1)
 				return (1);

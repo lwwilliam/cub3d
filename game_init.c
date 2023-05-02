@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/05/02 18:27:13 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/02 22:41:41 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_game_vars(t_cub *cub, t_map *map)
 {
 	cub->posx = (float)map->map_posx * (float)BLOCK_SIZE;
 	cub->posy = (float)map->map_posy * (float)BLOCK_SIZE;
+	printf("DIRECTION CHECK:%c\n", map->direction);
 	if (map->direction == 'N')
 		cub->angle = 0;
 	else if (map->direction == 'S')
@@ -31,6 +32,5 @@ static void	init_game_vars(t_cub *cub, t_map *map)
 
 void	game(t_map *map, t_cub *cub)
 {
-	init_game_vars(cub, map);
-	printf("final pos:\nposx:%f | posy:%f\n", cub->posx, cub->posy);
+	init_game_vars(cub, map);	
 }
