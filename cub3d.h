@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 22:34:09 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/04 17:33:05 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@
 # define TRUE 1
 # define FALSE 0
 
-# define BLOCK_SIZE 1
+# define BLOCK_SIZE 32
 # define MAP_WIDTH 1920
 # define MAP_HEIGHT 1080
 
 # define RAYCAST 500
 # define FOV 90
-# define SPEED 0.25
+# define SPEED 4
+# define ANGLE 2
 
 # define FORWARD 1
 # define BACKWARD 2

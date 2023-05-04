@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/05/02 22:25:09 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/04 17:39:47 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,26 @@ void	move_char(t_master *master, int direction)
 	}	
 }
 
+// float	get_dist(t_cub *cub, t_map *map, float angle)
+// {
+	
+// }
+
 void	raycast(t_master *master)
 {
-	while ()
+	int		i;
+	t_cub	*cub;
+	t_map	*map;
+
+	map = master->m_map;
+	cub = master->m_cub;
+	i = 0;
+	cub->angle - (FOV / 2);
+	cub->angle + (FOV / 2);
+
+	while (i < RAYCAST);
+	{
+		// get_dist(cub, map, (cub->angle - (FOV / 2)) + (i * FOV / RAYCAST));
+		++i;
+	}
 }

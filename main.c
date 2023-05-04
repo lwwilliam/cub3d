@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 22:01:21 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/04 17:07:59 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	input(int keycode, t_master *master)
 	else if (keycode == 2)
 		move_char(master, RIGHT);
 	else if (keycode == 123)
-		master->m_cub->angle -= 1;
+		master->m_cub->angle -= ANGLE;
 	else if (keycode == 124)
-		master->m_cub->angle += 1;
+		master->m_cub->angle += ANGLE;
 	else
 		return (0);
-	game_loop(master);
+	// game_loop(master);
 	printf("posx:%f | posy:%f | angle:%f\n", master->m_cub->posx, master->m_cub->posy, master->m_cub->angle);
 	return (0);
 }
@@ -95,7 +95,10 @@ int	main(int ac, char **av)
 	t_master master;
 
 	if (ac != 2)
+	{
+		printf("invalid input\n");
 		return (1);
+	}
 	if (!ft_strnstr(av[1], ".cub", ft_strlen(av[1])))
 		ft_putstr_fd("\033[0;31mError!\nInvalid File\033[0m\n", 2);
 	if (map_init(&map, av[1]) == 1)
@@ -106,8 +109,8 @@ int	main(int ac, char **av)
 	master.m_map = &map;
 	printf("init pos\nposx:%f | posy:%f | angle:%f\n\n", cub.posx, cub.posy, cub.angle);
 	mlx_hook(master.m_cub->win, 17, 0, exit_button, &master);
-	// mlx_key_hook(master.m_cub->win, input, &master);
-	mlx_loop_hook(master.m_cub->mlx, hooks, &master);
+	mlx_key_hook(master.m_cub->win, input, &master);
+	// mlx_loop_hook(master.m_cub->mlx, hooks, &master);
 	mlx_loop(master.m_cub->mlx);
 	return (0);
 }

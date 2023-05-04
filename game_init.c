@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/05/02 22:41:41 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/04 16:12:01 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ static void	init_game_vars(t_cub *cub, t_map *map)
 
 void	game(t_map *map, t_cub *cub)
 {
-	init_game_vars(cub, map);	
+	init_game_vars(cub, map);
 }
