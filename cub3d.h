@@ -6,13 +6,14 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/04 17:55:32 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/04 18:06:32 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <math.h>
 # include <unistd.h>
 # include <mlx.h>
 # include <stdlib.h>
@@ -26,6 +27,8 @@
 # define FALSE 0
 # define MAP_WIDTH 200
 # define MAP_HEIGHT 200
+# define FOV 90
+# define SPEED 2
 
 //KEYCODES
 # define KEY_UP_W 13
@@ -54,15 +57,17 @@ typedef struct s_map
 	int		height;
 	int		posx;
 	int		posy;
+	char	direction;
 }	t_map;
 
 // struct for the game part of the project
 typedef struct s_cub
 {
-	void		*mlx;
-	void		*win;
-	long double	posx;
-	long double	posy;
+	void	*mlx;
+	void	*win;
+	float	posx;
+	float	posy;
+	float	angle;
 }	t_cub;
 
 typedef struct s_master

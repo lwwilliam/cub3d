@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/04 17:43:01 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/04 18:13:10 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	map_check(t_master *m)
 	int	x;
 
 	y = 0;
-	x = 0;
 	while (m->map.layout[y])
 	{
 		x = 0;
@@ -102,6 +101,7 @@ int	map_check(t_master *m)
 			{
 				m->map.posx = x;
 				m->map.posy = y;
+				m->map.direction = m->map.layout[y][x];
 			}
 			x++;
 		}
