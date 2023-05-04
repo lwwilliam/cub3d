@@ -1,0 +1,16 @@
+# Gitignore for C programs in Mac OS X
+# Object files
+obj/
+*.o
+# Libraries
+*.a
+# Executables
+*.out
+# Xcode
+*.DS_Store
+*.xcuserstate
+*.xcworkspace
+xcuserdata
+# Vim
+*.swp
+

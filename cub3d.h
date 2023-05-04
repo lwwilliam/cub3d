@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/03 17:17:05 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/04 15:29:58 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@
 # define KEY_RIGHT_D 2
 # define KEY_ESC 53
 
+typedef struct s_keys
+{
+	int	key_up;
+	int	key_down;
+	int	key_left;
+	int	key_right;
+}			t_keys;
+
 typedef struct s_map
 {
 	char	*north_texture;
@@ -55,6 +63,7 @@ typedef struct s_cub
 	void		*win;
 	long double	posx;
 	long double	posy;
+	t_keys		keys;
 }	t_cub;
 
 /* GAME_INIT */
