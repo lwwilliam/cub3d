@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/04 15:29:58 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/04 17:55:32 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define BLOCK_SIZE 32
 # define TRUE 1
 # define FALSE 0
-# define MAP_WIDTH 1920
-# define MAP_HEIGHT 1080
+# define MAP_WIDTH 200
+# define MAP_HEIGHT 200
 
 //KEYCODES
 # define KEY_UP_W 13
@@ -34,13 +34,13 @@
 # define KEY_RIGHT_D 2
 # define KEY_ESC 53
 
-typedef struct s_keys
+typedef struct s_key
 {
-	int	key_up;
-	int	key_down;
-	int	key_left;
-	int	key_right;
-}			t_keys;
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+}	t_key;
 
 typedef struct s_map
 {
@@ -50,10 +50,10 @@ typedef struct s_map
 	char	*east_texture;
 	char	*floor_colour;
 	char	*ceilling_colour;
-	char	**map;
-	int		map_height;
-	int		map_posx;
-	int		map_posy;
+	char	**layout;
+	int		height;
+	int		posx;
+	int		posy;
 }	t_map;
 
 // struct for the game part of the project
@@ -63,26 +63,38 @@ typedef struct s_cub
 	void		*win;
 	long double	posx;
 	long double	posy;
-	t_keys		keys;
 }	t_cub;
 
+typedef struct s_master
+{
+	t_cub	cub;
+	t_map	map;
+	t_key	key;
+}	t_master;
+
 /* GAME_INIT */
-void	game(t_map *map, t_cub *cub);
+void	game(t_master *m);
 
 /* MAIN */
-int		map_init(t_map *map, char *file);
+int		map_init(t_master *m, char *file);
 void	free_funct(char **array);
-void	exit_err(t_map *map, char *message, int code);
-void	close_window(t_cub *cub, t_map *map);
+void	exit_err(t_master *m, char *message, int code);
+int		close_window(t_master *m);
 
 /* MAP_CHECK */
-int		map_check(t_map *map);
+int		map_check(t_master *m);
 
 /* MAP_HANDLE */
-void	map_assign(t_map *map, char *file);
-void	map_size(t_map *map, char *file);
+void	map_assign(t_master *m, char *file);
+void	map_size(t_master *m, char *file);
 
 /* MAP_UTIL */
-void	init_map_vars(t_map *map);
+void	init_map_vars(t_master *m);
+
+/* GAME CONTROLLER */
+void	key_init(t_master *m);
+int		key_press(int keycode, t_master *m);
+int		key_release(int keycode, t_master *m);
+int		actions(t_master *m);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wting <wting@student.42.fr>                +#+  +:+       +#+         #
+#    By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 15:25:11 by lwilliam          #+#    #+#              #
-#    Updated: 2023/05/02 16:13:53 by wting            ###   ########.fr        #
+#    Updated: 2023/05/04 17:27:40 by lchew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME	=	cub3d
 
 # MANDATORY SOURCE CODE
 SRC_DIR = ./
-SRC		= main.c map_handle.c free.c map_check.c map_util.c game_init.c
+SRC		= main.c map_handle.c map_check.c map_util.c \
+			game_init.c game_controller.c free.c
 OBJ_DIR = ./obj/
 OBJ		= $(SRC:%.c=$(OBJ_DIR)%.o)
 
@@ -25,7 +26,7 @@ INC		= -I$(INC_DIR)
 
 # COMPILATION
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror $(FSAN)
 FSAN		= 	-fsanitize=address
 
 # LIBFT LIBRARY

@@ -6,29 +6,29 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:56:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/03 17:16:52 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/04 17:43:16 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	identifier_check(t_map *map, char *id)
+static void	identifier_check(t_master *m, char *id)
 {
 	if (!ft_strncmp(id, "NO", 2))
-		map->north_texture = ft_substr(id, 3, ft_strlen(id) - 4);
+		m->map.north_texture = ft_substr(id, 3, ft_strlen(id) - 4);
 	else if (!ft_strncmp(id, "SO", 2))
-		map->south_texture = ft_substr(id, 3, ft_strlen(id) - 4);
+		m->map.south_texture = ft_substr(id, 3, ft_strlen(id) - 4);
 	else if (!ft_strncmp(id, "WE", 2))
-		map->west_texture = ft_substr(id, 3, ft_strlen(id) - 4);
+		m->map.west_texture = ft_substr(id, 3, ft_strlen(id) - 4);
 	else if (!ft_strncmp(id, "EA", 2))
-		map->east_texture = ft_substr(id, 3, ft_strlen(id) - 4);
+		m->map.east_texture = ft_substr(id, 3, ft_strlen(id) - 4);
 	else if (!ft_strncmp(id, "F", 1))
-		map->floor_colour = ft_substr(id, 2, ft_strlen(id) - 3);
+		m->map.floor_colour = ft_substr(id, 2, ft_strlen(id) - 3);
 	else if (!ft_strncmp(id, "C", 1))
-		map->ceilling_colour = ft_substr(id, 2, ft_strlen(id) - 3);
+		m->map.ceilling_colour = ft_substr(id, 2, ft_strlen(id) - 3);
 }
 
-void	map_size(t_map *map, char *file)
+void	map_size(t_master *m, char *file)
 {
 	int		line_no;
 	char	*line;
@@ -37,36 +37,36 @@ void	map_size(t_map *map, char *file)
 	line_no = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		exit_err(map, "Error\nFile failed to open\n", 0);
+		exit_err(m, "Error\nFile failed to open\n", 0);
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
 		if (line_no < 8)
-			identifier_check(map, line);
+			identifier_check(m, line);
 		free(line);
 		line_no++;
 	}
-	map->map = ft_calloc((line_no - 8) + 1, sizeof(char *));
+	m->map.layout = ft_calloc((line_no - 8) + 1, sizeof(char *));
 	close(fd);
 }
 
-static void	assign_help(t_map *map, char *line)
+static void	assign_help(t_master *m, char *line)
 {
 	if (ft_strchr(line, '\t'))
 	{
 		free(line);
-		exit_err(map, "Error\nTab is found\n", 1);
+		exit_err(m, "Error\nTab is found\n", 1);
 	}
 	if (ft_strlen(line) > 1)
 	{
-		map->map[map->map_height] = ft_strtrim(line, "\n");
-		map->map_height++;
+		m->map.layout[m->map.height] = ft_strtrim(line, "\n");
+		m->map.height++;
 	}
 }
 
-void	map_assign(t_map *map, char *file)
+void	map_assign(t_master *m, char *file)
 {
 	char	*line;
 	int		x;
@@ -75,7 +75,7 @@ void	map_assign(t_map *map, char *file)
 	x = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		exit_err(map, "Error\nFile failed to open\n", 1);
+		exit_err(m, "Error\nFile failed to open\n", 1);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -87,7 +87,7 @@ void	map_assign(t_map *map, char *file)
 			free(line);
 			continue ;
 		}
-		assign_help(map, line);
+		assign_help(m, line);
 		free(line);
 	}
 	close(fd);
