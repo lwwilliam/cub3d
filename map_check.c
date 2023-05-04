@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/02 16:17:26 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/03 17:14:10 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	wall_side(t_map *map)
 	return (0);
 }
 
-static int	wall(t_map *map, char *line, int current_width)
+static void	wall(t_map *map, char *line, int current_width)
 {
 	int	x;
 
@@ -64,40 +64,23 @@ static int	wall(t_map *map, char *line, int current_width)
 		while (line[x])
 		{
 			if (line[x] != '1' && line[x] != ' ')
-			{
-				ft_putstr_fd("\033[0;31mError!\nMap \
-is not closed by walls\033[0m\n", 2);
-				return (1);
-			}
+				exit_err(map, "Error\nMap not enclosed\n", 1);
 			x++;
 		}
 	}
 	if (wall_side(map) == 1)
-	{
-		ft_putstr_fd("\033[0;31mError!\nMap \
-is not closed by walls\033[0m\n", 2);
-		return (1);
-	}
-	return (0);
+		exit_err(map, "Error\nMap not enclosed\n", 1);
 }
 
-static int	valid_character(t_map *map, char c)
+static void	valid_character(t_map *map, char c)
 {
 	if (c != '0' && c != '1' && c != 'N' && c != 'S'
 		&& c != 'E' && c != 'W' && c != ' ')
-	{
-		ft_putstr_fd("\033[0;31mError!\nMap contains \
-invalid character\033[0m\n", 2);
-		return (1);
-	}
+		exit_err(map, "Error\nInvalid character in map\n", 1);
 	if (!map->north_texture[0] || !map->south_texture[0]
 		|| !map->west_texture[0] || !map->east_texture[0]
 		|| !map->floor_colour[0] || !map->ceilling_colour[0])
-	{
-		ft_putstr_fd("\033[0;31mError!\nError In File\033[0m\n", 2);
-		return (1);
-	}
-	return (0);
+		exit_err(map, "Error\nMissing Identifier\n", 1);
 }
 
 int	map_check(t_map *map)
@@ -110,12 +93,10 @@ int	map_check(t_map *map)
 	while (map->map[y])
 	{
 		x = 0;
-		if (wall(map, map->map[y], y) == 1)
-			return (1);
+		wall(map, map->map[y], y);
 		while (map->map[y][x])
 		{
-			if (valid_character(map, map->map[y][x]) == 1)
-				return (1);
+			valid_character(map, map->map[y][x]);
 			if (map->map[y][x] == 'N' || map->map[y][x] == 'S'
 				|| map->map[y][x] == 'E' || map->map[y][x] == 'W')
 			{

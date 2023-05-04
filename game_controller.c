@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_util.c                                         :+:      :+:    :+:   */
+/*   game_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 15:18:04 by wting             #+#    #+#             */
-/*   Updated: 2023/05/02 17:40:52 by lchew            ###   ########.fr       */
+/*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
+/*   Updated: 2023/05/02 17:20:44 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_map_vars(t_map *map)
+int	key_action(int keycode, t_cub *cub, t_map *map)
 {
-	map->north_texture = NULL;
-	map->south_texture = NULL;
-	map->west_texture = NULL;
-	map->east_texture = NULL;
-	map->floor_colour = NULL;
-	map->ceilling_colour = NULL;
-	map->map = NULL;
-	map->map_height = 0;
-	map->map_posx = 0;
-	map->map_posy = 0;
+	if (keycode == KEY_ESC)
+		close_window(cub, map);
+	else if (keycode == KEY_UP_W)
+		pos_swap(0, -1, cub);
+	else if (keycode == KEY_DOWN_S)
+		pos_swap(0, 1, cub);
+	else if (keycode == KEY_LEFT_A)
+		pos_swap(-1, 0, cub);
+	else if (keycode == KEY_RIGHT_D)
+		pos_swap(1, 0, cub);
+	return (0);
 }
