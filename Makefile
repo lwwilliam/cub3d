@@ -6,7 +6,7 @@
 #    By: wting <wting@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 15:25:11 by lwilliam          #+#    #+#              #
-#    Updated: 2023/05/02 19:17:37 by wting            ###   ########.fr        #
+#    Updated: 2023/05/05 14:54:48 by wting            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME	=	cub3d
 # MANDATORY SOURCE CODE
 SRC_DIR = ./
 SRC		=	main.c map_handle.c free.c map_check.c map_util.c game_init.c \
-			game_run.c game_util.c
+			game_run.c game_util.c game_controller.c
 OBJ_DIR = ./obj/
 OBJ		= $(SRC:%.c=$(OBJ_DIR)%.o)
 
@@ -27,7 +27,11 @@ INC		= -I$(INC_DIR)
 # COMPILATION
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror $(FSAN)
+<<<<<<< HEAD
 FSAN		= 	-fsanitize=address -g
+=======
+FSAN		= 	-fsanitize=address
+>>>>>>> dev
 
 # LIBFT LIBRARY
 LIBFT_DIR = ./libft/

@@ -6,15 +6,15 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:03:27 by wting             #+#    #+#             */
-/*   Updated: 2023/05/02 22:33:20 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/05 14:53:42 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float deg_to_rad(float degree)
+float	deg_to_rad(float degree)
 {
-	float ret;
+	float	ret;
 
 	ret = degree * M_PI / 180;
 	return (ret);

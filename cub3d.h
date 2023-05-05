@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/04 17:33:05 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/05 14:52:59 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@
 # define LEFT 3
 # define RIGHT 4
 
+//KEYCODES
+# define KEY_UP_W 13
+# define KEY_DOWN_S 1
+# define KEY_LEFT_A 0
+# define KEY_RIGHT_D 2
+# define KEY_ESC 53
+
+typedef struct s_key
+{
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+}	t_key;
+
 typedef struct s_map
 {
 	char	*north_texture;
@@ -47,10 +62,10 @@ typedef struct s_map
 	char	*east_texture;
 	char	*floor_colour;
 	char	*ceilling_colour;
-	int		map_posx;
-	int		map_posy;
-	char	**map;
-	int		map_height;
+	char	**layout;
+	int		height;
+	int		posx;
+	int		posy;
 	char	direction;
 }	t_map;
 
@@ -68,12 +83,13 @@ typedef struct s_cub
 
 typedef struct s_master
 {
-	t_cub	*m_cub;
-	t_map	*m_map;
+	t_cub	cub;
+	t_map	map;
+	t_key	key;
 }	t_master;
 
 /* GAME_INIT */
-void	game(t_map *map, t_cub *cub);
+void	game(t_master *m);
 
 /* GAME_RUN */
 void	move_char(t_master *master, int direction);
@@ -82,21 +98,30 @@ void	move_char(t_master *master, int direction);
 float	 deg_to_rad(float degree);
 
 /* MAIN */
-int		map_init(t_map *map, char *file);
+int		map_init(t_master *m, char *file);
+void	free_funct(char **array);
+void	exit_err(t_master *m, char *message, int code);
+int		close_window(t_master *m);
 
 /* MAP_CHECK */
-int		map_check(t_map *map);
+int		map_check(t_master *m);
 
 /* MAP_HANDLE */
-int		map_assign(t_map *map, int fd);
-int		map_size(t_map *map, int fd);
+void	map_assign(t_master *m, char *file);
+void	map_size(t_master *m, char *file);
 
 /* MAP_UTIL */
-void	init_map_vars(t_map *map);
 int		create_trgb(int t, int r, int g, int b);
 
 /* FREE */
 void	free_funct(char **array);
 void	exit_free(t_master *master);
+void	init_map_vars(t_master *m);
+
+/* GAME CONTROLLER */
+void	key_init(t_master *m);
+int		key_press(int keycode, t_master *m);
+int		key_release(int keycode, t_master *m);
+int		actions(t_master *m);
 
 #endif
