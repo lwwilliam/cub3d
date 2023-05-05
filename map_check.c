@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/04 18:13:10 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/05 16:15:59 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,12 @@ static void	wall(t_master *m, char *line, int current_width)
 		exit_err(m, "Error\nMap not enclosed\n", 1);
 }
 
-static void	valid_character(t_master *m, char c)
+static void	valid_character(t_master *m, char c, int *p_count)
 {
+	if (*p_count > 1)
+		exit_err(m, "Error\nMore than 1 player\n", 1);
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		++*p_count;
 	if (c != '0' && c != '1' && c != 'N' && c != 'S'
 		&& c != 'E' && c != 'W' && c != ' ')
 		exit_err(m, "Error\nInvalid character in map\n", 1);
@@ -87,15 +91,17 @@ int	map_check(t_master *m)
 {
 	int	y;
 	int	x;
+	int	p_count;
 
 	y = 0;
+	p_count = 0;
 	while (m->map.layout[y])
 	{
 		x = 0;
 		wall(m, m->map.layout[y], y);
 		while (m->map.layout[y][x])
 		{
-			valid_character(m, m->map.layout[y][x]);
+			valid_character(m, m->map.layout[y][x], &p_count);
 			if (m->map.layout[y][x] == 'N' || m->map.layout[y][x] == 'S'
 				|| m->map.layout[y][x] == 'E' || m->map.layout[y][x] == 'W')
 			{
