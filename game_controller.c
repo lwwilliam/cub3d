@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/08 19:54:41 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:58:32 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int	actions(t_master *m)
 {
 	void	*img;
 	void	*img2;
-	char	*relative_path = "./maps/test.xpm";
-	char	*relative = "./maps/yes.xpm";
+	char	*relative_path = "./xpm/test.xpm";
+	char	*relative = "./xpm/yes.xpm";
 	int		img_width;
 	int		img_height;
 	float	tmpx;
