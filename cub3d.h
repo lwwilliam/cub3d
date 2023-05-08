@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/05 14:52:59 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/05 19:21:56 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 # define FALSE 0
 
 # define BLOCK_SIZE 32
-# define MAP_WIDTH 1920
-# define MAP_HEIGHT 1080
+# define MAP_WIDTH 200
+# define MAP_HEIGHT 200
 
 # define RAYCAST 500
 # define FOV 90
 # define SPEED 4
-# define ANGLE 2
+# define ANGLE 1
 
 # define FORWARD 1
 # define BACKWARD 2
@@ -45,6 +45,8 @@
 # define KEY_LEFT_A 0
 # define KEY_RIGHT_D 2
 # define KEY_ESC 53
+# define KEY_ROT_LEFT 123
+# define KEY_ROT_RIGHT 124
 
 typedef struct s_key
 {
@@ -52,6 +54,8 @@ typedef struct s_key
 	int	down;
 	int	left;
 	int	right;
+	int	rot_left;
+	int rot_right;
 }	t_key;
 
 typedef struct s_map
@@ -92,7 +96,6 @@ typedef struct s_master
 void	game(t_master *m);
 
 /* GAME_RUN */
-void	move_char(t_master *master, int direction);
 
 /* GAME_UTIL */
 float	 deg_to_rad(float degree);

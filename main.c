@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/05 14:54:13 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/05 15:19:29 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,6 @@ int	win_init(t_master *m)
 	return (0);
 }
 
-// int	input(int keycode, t_master *master)
-// {
-// 	if (keycode == 53)
-// 		exit_free(master);
-// 	else if (keycode == 13)
-// 		move_char(master, FORWARD);
-// 	else if (keycode == 1)
-// 		move_char(master, BACKWARD);
-// 	else if (keycode == 0)
-// 		move_char(master, LEFT);
-// 	else if (keycode == 2)
-// 		move_char(master, RIGHT);
-// 	else if (keycode == 123)
-// 		master->m_cub->angle -= ANGLE;
-// 	else if (keycode == 124)
-// 		master->m_cub->angle += ANGLE;
-// 	else
-// 		return (0);
-// 	// game_loop(master);
-// 	printf("posx:%f | posy:%f | angle:%f\n", master->m_cub->posx, master->m_cub->posy, master->m_cub->angle);
-// 	return (0);
-// }
-
 int	map_init(t_master *m, char *file)
 {
 	init_map_vars(m);
@@ -59,13 +36,6 @@ int	map_init(t_master *m, char *file)
 		free_funct(m->map.layout);
 		return (1);
 	}
-	return (0);
-}
-
-int	hooks(t_master *master)
-{
-	mlx_key_hook(master->m_cub->win, input, master);
-	// (void)master;
 	return (0);
 }
 

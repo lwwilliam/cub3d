@@ -6,7 +6,7 @@
 #    By: wting <wting@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 15:25:11 by lwilliam          #+#    #+#              #
-#    Updated: 2023/05/05 14:54:48 by wting            ###   ########.fr        #
+#    Updated: 2023/05/05 15:09:38 by wting            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,7 @@ INC		= -I$(INC_DIR)
 # COMPILATION
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror $(FSAN)
-<<<<<<< HEAD
 FSAN		= 	-fsanitize=address -g
-=======
-FSAN		= 	-fsanitize=address
->>>>>>> dev
 
 # LIBFT LIBRARY
 LIBFT_DIR = ./libft/
