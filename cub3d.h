@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/05 19:21:56 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/08 19:28:02 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 # define FALSE 0
 
 # define BLOCK_SIZE 32
-# define MAP_WIDTH 200
-# define MAP_HEIGHT 200
+# define MAP_WIDTH 1920
+# define MAP_HEIGHT 1080
 
 # define RAYCAST 500
 # define FOV 90
-# define SPEED 4
-# define ANGLE 1
+# define SPEED 10
+# define ANGLE 5
 
 # define FORWARD 1
 # define BACKWARD 2
@@ -90,6 +90,8 @@ typedef struct s_master
 	t_cub	cub;
 	t_map	map;
 	t_key	key;
+	int		tmpx;
+	int		tmpy;
 }	t_master;
 
 /* GAME_INIT */

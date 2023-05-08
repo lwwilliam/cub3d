@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/05 19:24:31 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/08 19:54:41 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ int	key_release(int keycode, t_master *m)
 	return (0);
 }
 
+// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+// 	*(unsigned int*)dst = color;
+// }
+
 //posx = cos(angle) * SPEED
 //pos𝑦 = sin(angle) * SPEED
 
@@ -65,32 +73,51 @@ static void	move_char(t_master *m, int direction)
 {
 	if (direction == FORWARD)
 	{
-		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
 		m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		// m->cub.posx += cos(deg_to_rad(m->cub.angle)) * SPEED;
 		// m->cub.posy += sin(deg_to_rad(m->cub.angle)) * SPEED;
 	}
 	else if (direction == BACKWARD)
 	{
-		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * SPEED;
-		m->cub.posy += cos(deg_to_rad(m->cub.angle)) * SPEED;
+		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED);
 		// m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		// m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 	}
 	else if (direction == LEFT)
 	{
 		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * SPEED;
+		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 	}
 	else if (direction == RIGHT)
 	{
 		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * SPEED;
-		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED);
 	}
 }
 
 int	actions(t_master *m)
 {
+	void	*img;
+	void	*img2;
+	char	*relative_path = "./maps/test.xpm";
+	char	*relative = "./maps/yes.xpm";
+	int		img_width;
+	int		img_height;
+	float	tmpx;
+	float	tmpy;
+
+	tmpx = m->cub.posx;
+	tmpy = m->cub.posy;
+	tmpx += (BLOCK_SIZE * 1.1) * sin(deg_to_rad(m->cub.angle)) + 24;
+	tmpy += (BLOCK_SIZE * 1.1) * cos(deg_to_rad(m->cub.angle + 180)) + 24;
+	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
+	img = mlx_xpm_file_to_image(m->cub.mlx, relative_path, &img_width, &img_height);
+	img2 = mlx_xpm_file_to_image(m->cub.mlx, relative, &img_width, &img_height);
+	mlx_clear_window(m->cub.mlx, m->cub.win);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, m->cub.posx, m->cub.posy);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img2, tmpx, tmpy);
 	if (m->key.up)
 	{
 		move_char(m, FORWARD);
@@ -115,7 +142,7 @@ int	actions(t_master *m)
 	{
 		m->cub.angle += ANGLE;
 	}
-	usleep(20000);
+	// usleep(20000);
 		printf("posx:%f | posy:%f | angle:%f\n", m->cub.posx, m->cub.posy, m->cub.angle);
 	return (0);
 }
