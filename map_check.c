@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/05 14:55:17 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/09 17:48:46 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	valid_character(t_master *m, char c)
 		exit_err(m, "Error\nInvalid character in map\n", 1);
 	if (!m->map.north_texture[0] || !m->map.south_texture[0]
 		|| !m->map.west_texture[0] || !m->map.east_texture[0]
-		|| !m->map.floor_colour[0] || !m->map.ceilling_colour[0])
+		|| !m->map.floor_colour[0] || !m->map.ceiling_colour[0])
 		exit_err(m, "Error\nMissing Identifier\n", 1);
 }
 

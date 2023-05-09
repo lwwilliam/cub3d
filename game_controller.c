@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/08 19:58:32 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:53:12 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ static void	move_char(t_master *m, int direction)
 		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * SPEED;
 		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED);
 	}
+	else
+		return ;
+	printf("posx:%f | posy:%f | angle:%f\n", m->cub.posx, m->cub.posy, m->cub.angle);
 }
 
 int	actions(t_master *m)
@@ -143,6 +146,6 @@ int	actions(t_master *m)
 		m->cub.angle += ANGLE;
 	}
 	// usleep(20000);
-		printf("posx:%f | posy:%f | angle:%f\n", m->cub.posx, m->cub.posy, m->cub.angle);
+	
 	return (0);
 }

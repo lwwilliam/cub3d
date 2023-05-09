@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/08 19:28:02 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:17:56 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@
 # define KEY_ROT_LEFT 123
 # define KEY_ROT_RIGHT 124
 
+/* 
+	Key struct for key press and release
+	up:			// W
+	down:		// S
+	left:		// A
+	right:		// D
+	rot_left:	// left arrow
+	rot_right:	// right arrow
+ */
 typedef struct s_key
 {
 	int	up;
@@ -55,9 +64,17 @@ typedef struct s_key
 	int	left;
 	int	right;
 	int	rot_left;
-	int rot_right;
+	int	rot_right;
 }	t_key;
 
+/* 
+	struct for the map part of the project
+	**layout:	// map layout
+	height:		// map height
+	posx:		// initial player position x
+	posy:		// initial player position y
+	direction:	// initial view N, S, E, W
+ */
 typedef struct s_map
 {
 	char	*north_texture;
@@ -65,7 +82,7 @@ typedef struct s_map
 	char	*west_texture;
 	char	*east_texture;
 	char	*floor_colour;
-	char	*ceilling_colour;
+	char	*ceiling_colour;
 	char	**layout;
 	int		height;
 	int		posx;
@@ -73,7 +90,12 @@ typedef struct s_map
 	char	direction;
 }	t_map;
 
-// struct for the game part of the project
+/* 
+	struct for the game part of the project
+	posx:		// player position x
+	posy:		// player position y
+	angle:		// player view angle
+*/
 typedef struct s_cub
 {
 	void	*mlx;
@@ -85,6 +107,14 @@ typedef struct s_cub
 	float	angle;
 }	t_cub;
 
+/* 
+	struct for the master struct
+	cub:		// game struct
+	map:		// map struct
+	key:		// key struct
+	tmpx:		// temporary x
+	tmpy:		// temporary y
+ */
 typedef struct s_master
 {
 	t_cub	cub;

@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:56:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/04 17:43:16 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/09 14:15:57 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	identifier_check(t_master *m, char *id)
 	else if (!ft_strncmp(id, "F", 1))
 		m->map.floor_colour = ft_substr(id, 2, ft_strlen(id) - 3);
 	else if (!ft_strncmp(id, "C", 1))
-		m->map.ceilling_colour = ft_substr(id, 2, ft_strlen(id) - 3);
+		m->map.ceiling_colour = ft_substr(id, 2, ft_strlen(id) - 3);
 }
 
 void	map_size(t_master *m, char *file)
