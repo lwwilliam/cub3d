@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 14:17:56 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/09 21:35:49 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <stdio.h>
 # include "./libft/includes/libft.h"
 # include "./libft/includes/get_next_line.h"
+
+# define WALL "./xpm/wall32x32.xpm"
+# define PLAYER "./xpm/test.xpm"
+# define VIEW "./xpm/yes.xpm"
 
 # define TRUE 1
 # define FALSE 0
@@ -69,7 +73,7 @@ typedef struct s_key
 
 /* 
 	struct for the map part of the project
-	**layout:	// map layout
+	**grid:	// map grid
 	height:		// map height
 	posx:		// initial player position x
 	posy:		// initial player position y
@@ -83,11 +87,14 @@ typedef struct s_map
 	char	*east_texture;
 	char	*floor_colour;
 	char	*ceiling_colour;
-	char	**layout;
+	char	**grid;
 	int		height;
 	int		posx;
 	int		posy;
 	char	direction;
+	int		img_width;
+	int		img_height;
+	char	*mini_wall;
 }	t_map;
 
 /* 
@@ -147,6 +154,8 @@ void	map_size(t_master *m, char *file);
 
 /* MAP_UTIL */
 int		create_trgb(int t, int r, int g, int b);
+
+int		create_map(t_master *m);
 
 /* FREE */
 void	free_funct(char **array);

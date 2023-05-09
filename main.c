@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/05 15:19:29 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/09 21:36:33 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	map_init(t_master *m, char *file)
 	map_assign(m, file);
 	if (map_check(m) == 1)
 	{
-		free_funct(m->map.layout);
+		free_funct(m->map.grid);
 		return (1);
 	}
 	return (0);
@@ -69,6 +69,6 @@ void	exit_err(t_master *m, char *message, int code)
 	ft_putstr_fd(message, 2);
 	ft_putstr_fd("\033[0m", 2);
 	if (code == 1)
-		free_funct(m->map.layout);
+		free_funct(m->map.grid);
 	exit(0);
 }

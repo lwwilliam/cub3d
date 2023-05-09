@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 17:48:46 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/09 20:47:28 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static int	check_middle(t_master *m, int h, int w)
 {
-	if (m->map.layout[h + 1][w] != ' ' && m->map.layout[h + 1][w] != '1')
+	if (m->map.grid[h + 1][w] != ' ' && m->map.grid[h + 1][w] != '1')
 		return (1);
-	if (m->map.layout[h - 1][w] != ' ' && m->map.layout[h - 1][w] != '1')
+	if (m->map.grid[h - 1][w] != ' ' && m->map.grid[h - 1][w] != '1')
 		return (1);
-	if (m->map.layout[h][w + 1] != ' ' && m->map.layout[h][w + 1] != '1')
+	if (m->map.grid[h][w + 1] != ' ' && m->map.grid[h][w + 1] != '1')
 		return (1);
-	if (m->map.layout[h][w - 1] != ' ' && m->map.layout[h][w - 1] != '1')
+	if (m->map.grid[h][w - 1] != ' ' && m->map.grid[h][w - 1] != '1')
 		return (1);
 	return (0);
 }
@@ -33,19 +33,19 @@ static int	wall_side(t_master *m)
 
 	y = -1;
 	x = -1;
-	while (m->map.layout[++y])
+	while (m->map.grid[++y])
 	{
 		x = 0;
-		while (m->map.layout[y][x++])
+		while (m->map.grid[y][x++])
 		{
-			if (x != 0 && y != 0 && x != ft_strlen(m->map.layout[y])
+			if (x != 0 && y != 0 && x != ft_strlen(m->map.grid[y])
 				&& y != m->map.height - 1)
 			{
-				tmp = ft_strtrim(m->map.layout[y], " ");
+				tmp = ft_strtrim(m->map.grid[y], " ");
 				if (tmp[0] != '1' && tmp[ft_strlen(tmp)] != '1')
 					return (1);
 				free(tmp);
-				if (m->map.layout[y][x] == ' ')
+				if (m->map.grid[y][x] == ' ')
 					if (check_middle(m, y, x) == 1)
 						return (1);
 			}
@@ -89,19 +89,19 @@ int	map_check(t_master *m)
 	int	x;
 
 	y = 0;
-	while (m->map.layout[y])
+	while (m->map.grid[y])
 	{
 		x = 0;
-		wall(m, m->map.layout[y], y);
-		while (m->map.layout[y][x])
+		wall(m, m->map.grid[y], y);
+		while (m->map.grid[y][x])
 		{
-			valid_character(m, m->map.layout[y][x]);
-			if (m->map.layout[y][x] == 'N' || m->map.layout[y][x] == 'S'
-				|| m->map.layout[y][x] == 'E' || m->map.layout[y][x] == 'W')
+			valid_character(m, m->map.grid[y][x]);
+			if (m->map.grid[y][x] == 'N' || m->map.grid[y][x] == 'S'
+				|| m->map.grid[y][x] == 'E' || m->map.grid[y][x] == 'W')
 			{
 				m->map.posx = x;
 				m->map.posy = y;
-				m->map.direction = m->map.layout[y][x];
+				m->map.direction = m->map.grid[y][x];
 			}
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:56:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 14:15:57 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/09 20:42:12 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	map_size(t_master *m, char *file)
 		free(line);
 		line_no++;
 	}
-	m->map.layout = ft_calloc((line_no - 8) + 1, sizeof(char *));
+	m->map.grid = ft_calloc((line_no - 8) + 1, sizeof(char *));
 	close(fd);
 }
 
@@ -61,7 +61,7 @@ static void	assign_help(t_master *m, char *line)
 	}
 	if (ft_strlen(line) > 1)
 	{
-		m->map.layout[m->map.height] = ft_strtrim(line, "\n");
+		m->map.grid[m->map.height] = ft_strtrim(line, "\n");
 		m->map.height++;
 	}
 }

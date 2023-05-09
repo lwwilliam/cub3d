@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wting <wting@student.42.fr>                +#+  +:+       +#+         #
+#    By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 15:25:11 by lwilliam          #+#    #+#              #
-#    Updated: 2023/05/05 15:09:38 by wting            ###   ########.fr        #
+#    Updated: 2023/05/09 21:36:15 by lchew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME	=	cub3d
 # MANDATORY SOURCE CODE
 SRC_DIR = ./
 SRC		=	main.c map_handle.c free.c map_check.c map_util.c game_init.c \
-			game_run.c game_util.c game_controller.c
+			game_run.c game_util.c game_controller.c map_boundary.c
 OBJ_DIR = ./obj/
 OBJ		= $(SRC:%.c=$(OBJ_DIR)%.o)
 
