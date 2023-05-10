@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/09 21:59:27 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/10 17:04:45 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,46 +71,49 @@ int	key_release(int keycode, t_master *m)
 
 static void	move_char(t_master *m, int direction)
 {
-	int x;
-	int y;
-	
-	x = (int)m->cub.posx;
-	y = (int)m->cub.posy;
-	printf("char x: %i, y: %i\n", x, y);
+	float	x;
+	float	y;
+
+	x = m->cub.posx;
+	y = m->cub.posy;
 	if (direction == FORWARD)
 	{
-		printf("grid x: %i, y: %i\n", x / BLOCK_SIZE, y / BLOCK_SIZE);
-		if (m->map.grid[y / BLOCK_SIZE][x / BLOCK_SIZE] != '1')
+		x += cos(deg_to_rad(m->cub.angle)) * (SPEED);
+		y += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+		if (m->map.grid[(int)y / BLOCK_SIZE][(int)x / BLOCK_SIZE] != '1')
 		{
-			m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED);
-			m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+			m->cub.posx = x;
+			m->cub.posy = y;
 		}
 	}
 	else if (direction == BACKWARD)
 	{
-		printf("grid x: %i, y: %i\n", x / BLOCK_SIZE, y / BLOCK_SIZE);
-		if (m->map.grid[y / BLOCK_SIZE][x / BLOCK_SIZE] != '!')
+		x += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		y += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		if (m->map.grid[(int)y / BLOCK_SIZE][(int)x / BLOCK_SIZE] != '1')
 		{
-			m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-			m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+			m->cub.posx = x;
+			m->cub.posy = y;
 		}
 	}
 	else if (direction == LEFT)
 	{
-		printf("grid x: %i, y: %i\n", x / BLOCK_SIZE, y / BLOCK_SIZE);
-		if (m->map.grid[y / BLOCK_SIZE][x / BLOCK_SIZE] != '1')
+		x += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+		y += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		if (m->map.grid[(int)y / BLOCK_SIZE][(int)x / BLOCK_SIZE] != '1')
 		{
-			m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
-			m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+			m->cub.posx = x;
+			m->cub.posy = y;
 		}
 	}
 	else if (direction == RIGHT)
 	{
-		printf("grid x: %i, y: %i\n", x / BLOCK_SIZE, y / BLOCK_SIZE);
-		if (m->map.grid[y / BLOCK_SIZE][x / BLOCK_SIZE] != '1')
+		x += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		y += cos(deg_to_rad(m->cub.angle)) * (SPEED);
+		if (m->map.grid[(int)y / BLOCK_SIZE][(int)x / BLOCK_SIZE] != '1')
 		{
-			m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-			m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED);
+			m->cub.posx = x;
+			m->cub.posy = y;
 		}
 	}
 	else
@@ -125,8 +128,8 @@ int	actions(t_master *m)
 	float	tmpx;
 	float	tmpy;
 
-	tmpx = m->cub.posx + 16;
-	tmpy = m->cub.posy + 16;
+	tmpx = m->cub.posx;
+	tmpy = m->cub.posy;
 	tmpx += (BLOCK_SIZE * 1.1) * cos(deg_to_rad(m->cub.angle));
 	tmpy += (BLOCK_SIZE * 1.1) * sin(deg_to_rad(m->cub.angle));
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);

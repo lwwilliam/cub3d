@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 21:35:49 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/10 17:10:10 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 
 # define RAYCAST 500
 # define FOV 90
-# define SPEED 10
-# define ANGLE 5
+# define SPEED 2
+# define ANGLE 2
 
 # define FORWARD 1
 # define BACKWARD 2
