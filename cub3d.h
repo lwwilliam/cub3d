@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/10 17:10:10 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/14 17:21:05 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,29 @@ typedef struct s_key
 }	t_key;
 
 /* 
+	struct for the image part of the project
+	*img:				// address of image
+	*addr:				// address of the image pixels
+	bits_per_pixel:		// bits per pixel
+	line_length:		// line length
+	endian:				// endian
+	width:				// image width
+	height:				// image height
+ */
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}	t_texture;
+
+/* 
 	struct for the map part of the project
-	**grid:	// map grid
+	**grid:		// map grid
 	height:		// map height
 	posx:		// initial player position x
 	posy:		// initial player position y
@@ -105,13 +126,17 @@ typedef struct s_map
 */
 typedef struct s_cub
 {
-	void	*mlx;
-	void	*win;
-	int		floor_hex;
-	int		ceil_hex;
-	float	posx;
-	float	posy;
-	float	angle;
+	void		*mlx;
+	void		*win;
+	t_texture	*n_wall;
+	t_texture	*s_wall;
+	t_texture	*e_wall;
+	t_texture	*w_wall;
+	int			floor_hex;
+	int			ceil_hex;
+	float		posx;
+	float		posy;
+	float		angle;
 }	t_cub;
 
 /* 
@@ -137,7 +162,7 @@ void	game(t_master *m);
 /* GAME_RUN */
 
 /* GAME_UTIL */
-float	 deg_to_rad(float degree);
+float	deg_to_rad(float degree);
 
 /* MAIN */
 int		map_init(t_master *m, char *file);
@@ -155,7 +180,9 @@ void	map_size(t_master *m, char *file);
 /* MAP_UTIL */
 int		create_trgb(int t, int r, int g, int b);
 
+/* MAP_DRAW */
 int		create_map(t_master *m);
+void	load_texture(t_master *m);
 
 /* FREE */
 void	free_funct(char **array);
