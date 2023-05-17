@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 21:36:33 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/17 20:39:32 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// void img_pix_put(t_img *img, int x, int y, int color)
+// {
+// 	char *pixel;
+
+// 	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+// 	*(int *)pixel = color;
+// }
 
 int	close_window(t_master *m)
 {
@@ -21,8 +29,10 @@ int	close_window(t_master *m)
 
 int	win_init(t_master *m)
 {
+	t_img empty_shit;
 	m->cub.mlx = mlx_init();
 	m->cub.win = mlx_new_window(m->cub.mlx, MAP_WIDTH, MAP_HEIGHT, "cub3d");
+	empty_shit = mlx_new_image()
 	return (0);
 }
 

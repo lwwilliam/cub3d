@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/10 17:10:10 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/17 19:06:17 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,17 @@ typedef struct s_cub
 	float	posy;
 	float	angle;
 }	t_cub;
+
+typedef struct s_img
+{
+	void		*mlx_img;
+	char		*addr;
+	int			x;
+	int			y;
+	int			bpp;
+	int			line_len;
+	int			endian;
+}	t_img;
 
 /* 
 	struct for the master struct
