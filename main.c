@@ -6,7 +6,7 @@
 /*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/17 20:39:32 by yalee            ###   ########.fr       */
+/*   Updated: 2023/05/17 20:54:35 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,17 @@ int	close_window(t_master *m)
 	return (0);
 }
 
+
+// initialized an image with nothing but in the scale of the window.
+// so the address that has to be changed to change the colour 
+
 int	win_init(t_master *m)
 {
 	t_img empty_shit;
 	m->cub.mlx = mlx_init();
 	m->cub.win = mlx_new_window(m->cub.mlx, MAP_WIDTH, MAP_HEIGHT, "cub3d");
-	empty_shit = mlx_new_image()
+	empty_shit = mlx_new_image(MAP_WIDTH, MAP_HEIGHT);
+	mlx_put_image_to_window();
 	return (0);
 }
 
