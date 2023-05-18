@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/14 17:21:05 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/17 19:15:38 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ typedef struct s_texture
 	struct for the map part of the project
 	**grid:		// map grid
 	height:		// map height
-	posx:		// initial player position x
-	posy:		// initial player position y
+	posx:		// initial player grid position x
+	posy:		// initial player grid position y
 	direction:	// initial view N, S, E, W
  */
 typedef struct s_map
@@ -120,8 +120,8 @@ typedef struct s_map
 
 /* 
 	struct for the game part of the project
-	posx:		// player position x
-	posy:		// player position y
+	posx:		// player pixel/unit coord x
+	posy:		// player pixel/unit coord y
 	angle:		// player view angle
 */
 typedef struct s_cub
@@ -137,6 +137,8 @@ typedef struct s_cub
 	float		posx;
 	float		posy;
 	float		angle;
+	float		dist_proj_plane;
+	float		slice_height;
 }	t_cub;
 
 /* 

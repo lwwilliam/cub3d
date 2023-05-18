@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/05/14 16:12:50 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/17 19:01:29 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	init_game_vars(t_master *m)
 		m->cub.angle = 0;
 	else if (m->map.direction == 'W')
 		m->cub.angle = 180;
+	m->cub.dist_proj_plane = ((float)MAP_WIDTH / 2) / tan(FOV / 2);
 }
 
 void	game(t_master *m)

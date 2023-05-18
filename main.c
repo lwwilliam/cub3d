@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 21:36:33 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/17 17:59:55 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ int	main(int ac, char **av)
 	t_master	m;
 
 	if (ac != 2)
-	{
-		printf("invalid input\n");
-		return (1);
-	}
+		exit_err(&m, "Invalid Input\nFormat: ./cub3d [path_to_map]\n", 0);
 	if (!ft_strnstr(av[1], ".cub", ft_strlen(av[1])))
 		exit_err(&m, "Error\nInvalid Filename\n", 0);
 	if (map_init(&m, av[1]) == 1)
