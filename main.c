@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/05 15:19:29 by wting            ###   ########.fr       */
+/*   Updated: 2023/05/19 22:06:58 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	main(int ac, char **av)
 		exit_err(&m, "Error\nInvalid Filename\n", 0);
 	if (map_init(&m, av[1]) == 1)
 		return (1);
-	game(&m);
 	win_init(&m);
 	key_init(&m);
+	game(&m);
 	mlx_hook(m.cub.win, 17, 0, close_window, &m);
 	mlx_hook(m.cub.win, 2, 1L<<0, key_press, &m);
 	mlx_key_hook(m.cub.win, key_release, &m);

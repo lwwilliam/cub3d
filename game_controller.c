@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/12 16:48:19 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:14:06 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	key_release(int keycode, t_master *m)
 		m->key.rot_left = 0;
 	else if (keycode == KEY_ROT_RIGHT)
 		m->key.rot_right = 0;
+	m->img.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->img.up_path, &m->img.w, &m->img.h);
 	return (0);
 }
 
@@ -71,6 +72,9 @@ int	key_release(int keycode, t_master *m)
 
 static void	move_char(t_master *m, int direction)
 {
+	int w;
+	int	h;
+
 	if (direction == FORWARD)
 	{
 		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
@@ -89,31 +93,19 @@ static void	move_char(t_master *m, int direction)
 	{
 		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		m->img.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->img.left_path, &w, &h);
 	}
 	else if (direction == RIGHT)
 	{
 		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * SPEED;
 		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+		m->img.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->img.right_path, &w, &h);
 	}
 	else
 		return ;
 	printf("posx:%f | posy:%f | angle:%f\n", m->cub.posx, m->cub.posy, m->cub.angle);
 }
 
-void	cockpit(t_master *m)
-{
-	void	*halo;
-	void	*up;
-	char	*halo_path = "./xpm/f1.xpm";
-	char	*up_path = "./xpm/up.xpm";
-	int		img_width;
-	int		img_height;
-
-	halo = mlx_xpm_file_to_image(m->cub.mlx, halo_path, &img_width, &img_height);
-	up = mlx_xpm_file_to_image(m->cub.mlx, up_path, &img_width, &img_height);
-	mlx_put_image_to_window(m->cub.mlx, m->cub.win, halo, 0, 580);
-	mlx_put_image_to_window(m->cub.mlx, m->cub.win, up, 573, 720);
-}
 
 int	actions(t_master *m)
 {
@@ -133,7 +125,10 @@ int	actions(t_master *m)
 	img = mlx_xpm_file_to_image(m->cub.mlx, relative_path, &img_width, &img_height);
 	img2 = mlx_xpm_file_to_image(m->cub.mlx, relative, &img_width, &img_height);
 	mlx_clear_window(m->cub.mlx, m->cub.win);
-	cockpit(m);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.ceiling_img, 0, 0);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.floor_img, 0, MAP_HEIGHT / 2);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.halo, 0, 580);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.wheel, 573, 720);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, m->cub.posx, m->cub.posy);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img2, tmpx, tmpy);
 	if (m->key.up)
