@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   game_run.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 18:41:21 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/05 15:10:25 by wting            ###   ########.fr       */
+/*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
+/*   Updated: 2023/05/09 17:49:14 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_funct(char **array)
+// float	get_dist(t_master *m)
+// {
+	
+// }
+void	raycast(t_master *m)
 {
-	char	**tmp;
+	float	i;
+	float	max;
+	// float	dist;
 
-	tmp = array;
-	while (tmp && *tmp)
+	i = m->cub.angle - (FOV / 2);
+	max = m->cub.angle + (FOV / 2);
+	while (i <= max)
 	{
-		free(*tmp);
-		tmp++;
+		// m->cub.dist = get_dist(m);
+		// draw_ray(m);
+		i += FOV / RAYCAST;
 	}
-	free(array);
-}
-
-
-void	exit_free(t_master *master)
-{
-	free_funct(master->map.layout);
-	ft_putendl_fd("keyboard interrupt", 2);
-	exit(0);
 }
