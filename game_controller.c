@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/19 22:14:06 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:39:20 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,39 +67,67 @@ int	key_release(int keycode, t_master *m)
 // 	*(unsigned int*)dst = color;
 // }
 
-//posx = cos(angle) * SPEED
-//pos𝑦 = sin(angle) * SPEED
 
+
+// set a dummy pos_x and pos_y to imitate the position of the player.
+// added a camera on the player position to simulate fov while ensuring that
+// the screen does not move around while raycasting.
+// the logic is to cast a ray from the line representing the leftmost fov, extend it 
+// until it hits a wall, calculate the distance from the player to it and then render the wall
+// according to that value. Repeat until the last ray, which is the rightmost line on the fov.
+// since the true north of our project is 0 degrees, the leftmost ray would be angle - 45 and angle + 45 
+// for the rightmost ray.
+
+// the ray extends using the same logic as the movement. Which is the speed constant scaled by the
+// trigonometric functions to extend it on a certain direction.
+void	raycast(t_master *m)
+{
+	float	distance;
+	float	camera_angle;
+	float	dummy_posx;
+	float	dummy_posy;
+	
+	dummy_posx = m->cub.posx;
+	dummy_posy = m->cub.posy;
+	camera_angle = m->cub.angle - 45;
+	while (camera_angle < m->cub.angle + 45)
+	{
+		dummy_posx = m->cub.posx;
+		dummy_posy = m->cub.posy;
+		while (m->map.layout[(int)(dummy_posy + cos(deg_to_rad(m->cub.angle)) * (SPEED * -1)) / 32][(int)(dummy_posx + sin(deg_to_rad(m->cub.angle)) * (SPEED)) / 32] != '1')
+		{
+			// same as
+			// if (direction == FORWARD && m->map.layout[(int)(m->cub.posy + cos(deg_to_rad(m->cub.angle)) * (SPEED * -1)) / 32][(int)(m->cub.posx + sin(deg_to_rad(m->cub.angle)) * (SPEED)) / 32] != '1')
+			// {
+			// 	m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+			// 	m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+			// }
+			dummy_posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+			dummy_posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+			distance += SPEED;
+		}
+		draw_pixel_according_to_distance(distance, m);
+		camera_angle += 0.1;
+	}
+}
+
+// added a map physics where player cant move trough walls
 static void	move_char(t_master *m, int direction)
 {
-	int w;
-	int	h;
+	// int w;
+	// int	h;
 
-	if (direction == FORWARD)
+	if (direction == FORWARD && m->map.layout[(int)(m->cub.posy + cos(deg_to_rad(m->cub.angle)) * (SPEED * -1)) / 32][(int)(m->cub.posx + sin(deg_to_rad(m->cub.angle)) * (SPEED)) / 32] != '1')
 	{
 		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
 		m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-		// m->cub.posx += cos(deg_to_rad(m->cub.angle)) * SPEED;
-		// m->cub.posy += sin(deg_to_rad(m->cub.angle)) * SPEED;
 	}
-	else if (direction == BACKWARD)
+	else if (direction == BACKWARD && m->map.layout[(int)(m->cub.posy + cos(deg_to_rad(m->cub.angle)) * (SPEED)) / 32][(int)(m->cub.posx + sin(deg_to_rad(m->cub.angle)) * (SPEED * -1)) / 32] != '1')
 	{
 		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED);
 		// m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		// m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-	}
-	else if (direction == LEFT)
-	{
-		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-		m->img.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->img.left_path, &w, &h);
-	}
-	else if (direction == RIGHT)
-	{
-		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * SPEED;
-		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED);
-		m->img.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->img.right_path, &w, &h);
 	}
 	else
 		return ;
