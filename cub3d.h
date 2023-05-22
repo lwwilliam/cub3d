@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/19 22:13:55 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:17:05 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,12 @@ typedef struct s_img
 	char	*right_path;
 	int		w;
 	int		h;
+	void	*wall_img;
+	char	*wall;
+	int		w_bpp;
+	int		w_endian;
+	int		w_line;
+	int		tmp_color;
 }	t_img;
 
 /* 

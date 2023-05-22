@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/19 22:14:06 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:35:50 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,14 @@ static void	move_char(t_master *m, int direction)
 	{
 		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		m->img.tmp_color = create_trgb(0, 0, 0, 225);
 		m->img.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->img.left_path, &w, &h);
 	}
 	else if (direction == RIGHT)
 	{
 		m->cub.posx += cos(deg_to_rad(m->cub.angle)) * SPEED;
 		m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+		m->img.tmp_color = create_trgb(0, 225, 240, 0);
 		m->img.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->img.right_path, &w, &h);
 	}
 	else
@@ -106,6 +108,26 @@ static void	move_char(t_master *m, int direction)
 	printf("posx:%f | posy:%f | angle:%f\n", m->cub.posx, m->cub.posy, m->cub.angle);
 }
 
+void	tmp_wall(t_master *m)
+{
+	int		x;
+	int		y;
+	char	*pixel;
+
+	y = 0;
+	pixel = m->img.wall;
+	while (y < 50)
+	{
+		x = 0;
+		while (x < 50)
+		{
+			pixel = m->img.wall + (y * m->img.w_line + x * (m->img.w_bpp / 8));
+			*(int *)pixel = m->img.tmp_color;
+			x++;
+		}
+		y++;
+	}
+}
 
 int	actions(t_master *m)
 {
@@ -125,8 +147,10 @@ int	actions(t_master *m)
 	img = mlx_xpm_file_to_image(m->cub.mlx, relative_path, &img_width, &img_height);
 	img2 = mlx_xpm_file_to_image(m->cub.mlx, relative, &img_width, &img_height);
 	mlx_clear_window(m->cub.mlx, m->cub.win);
+	tmp_wall(m);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.ceiling_img, 0, 0);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.floor_img, 0, MAP_HEIGHT / 2);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.wall_img, MAP_HEIGHT / 2, MAP_HEIGHT / 2);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.halo, 0, 580);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.wheel, 573, 720);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, m->cub.posx, m->cub.posy);

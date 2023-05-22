@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/05/19 22:08:57 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:34:44 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ static void	cockpit_init(t_master *m)
 	m->img.right_path = "./xpm/right.xpm";
 	m->img.halo = mlx_xpm_file_to_image(m->cub.mlx, halo_path, &img_width, &img_height);
 	m->img.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->img.up_path, &img_width, &img_height);
+	m->img.wall_img = mlx_new_image(m->cub.mlx, 50, 50);
+	m->img.wall = mlx_get_data_addr(m->img.wall_img, &m->img.w_bpp, &m->img.w_line, &m->img.w_endian);
+	m->img.tmp_color = create_trgb(0, 4, 225, 0);
 }
 
 void	game(t_master *m)
