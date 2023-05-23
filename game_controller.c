@@ -6,7 +6,7 @@
 /*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/23 01:39:20 by yalee            ###   ########.fr       */
+/*   Updated: 2023/05/23 18:40:06 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,18 @@ int	key_release(int keycode, t_master *m)
 	return (0);
 }
 
-// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-// {
-// 	char	*dst;
+void	draw_line_according_to_distance(t_master *m, float distance, int x)
+{
+	int	i;
+	char *pixel;
 
-// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-// 	*(unsigned int*)dst = color;
-// }
-
-
+	i = 0;
+	pixel = 
+	while (i < 108)
+	{
+		
+	}
+}
 
 // set a dummy pos_x and pos_y to imitate the position of the player.
 // added a camera on the player position to simulate fov while ensuring that
@@ -86,7 +89,9 @@ void	raycast(t_master *m)
 	float	camera_angle;
 	float	dummy_posx;
 	float	dummy_posy;
+	int		x_for_window;
 	
+	x_for_window = 0;
 	dummy_posx = m->cub.posx;
 	dummy_posy = m->cub.posy;
 	camera_angle = m->cub.angle - 45;
@@ -106,17 +111,17 @@ void	raycast(t_master *m)
 			dummy_posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 			distance += SPEED;
 		}
-		draw_pixel_according_to_distance(distance, m);
-		camera_angle += 0.1;
+		// will draw a straight line of different colour
+		draw_line_according_to_distance(m, distance, x_for_window);
+		// 90 / 1920
+		camera_angle += 0.046875;
+		x_for_window++;
 	}
 }
 
 // added a map physics where player cant move trough walls
 static void	move_char(t_master *m, int direction)
 {
-	// int w;
-	// int	h;
-
 	if (direction == FORWARD && m->map.layout[(int)(m->cub.posy + cos(deg_to_rad(m->cub.angle)) * (SPEED * -1)) / 32][(int)(m->cub.posx + sin(deg_to_rad(m->cub.angle)) * (SPEED)) / 32] != '1')
 	{
 		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
@@ -126,8 +131,6 @@ static void	move_char(t_master *m, int direction)
 	{
 		m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED);
-		// m->cub.posx += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-		// m->cub.posy += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 	}
 	else
 		return ;
