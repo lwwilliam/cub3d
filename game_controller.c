@@ -6,7 +6,7 @@
 /*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/23 18:40:06 by yalee            ###   ########.fr       */
+/*   Updated: 2023/05/23 21:25:55 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,18 @@ int	key_release(int keycode, t_master *m)
 	return (0);
 }
 
-void	draw_line_according_to_distance(t_master *m, float distance, int x)
-{
-	int	i;
-	char *pixel;
+// void	draw_line_according_to_distance(t_master *m, float distance, int x)
+// {
+// 	int	i;
+// 	char *pixel;
 
-	i = 0;
-	pixel = 
-	while (i < 108)
-	{
+// 	i = 0;
+// 	pixel = 
+// 	while (i < 108)
+// 	{
 		
-	}
-}
+// 	}
+// }
 
 // set a dummy pos_x and pos_y to imitate the position of the player.
 // added a camera on the player position to simulate fov while ensuring that

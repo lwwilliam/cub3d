@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/19 22:13:55 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:30:51 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 	rot_left:	// left arrow
 	rot_right:	// right arrow
  */
+
 typedef struct s_key
 {
 	int	up;
@@ -127,6 +128,22 @@ typedef struct s_img
 	int		w;
 	int		h;
 }	t_img;
+
+// typedef struct s_img
+// {
+// 	void	*reference;
+// 	char	*address;
+// 	int		bpp;
+// 	int		endian;
+// 	int		line_size;
+// }
+
+// typedef struct s_sprites
+// {
+// 	t_img	screen;
+// 	t_img	halo;
+// 	t_img	wheel;
+// }		t_sprites;
 
 /* 
 	struct for the master struct
