@@ -6,7 +6,7 @@
 /*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/23 21:30:51 by yalee            ###   ########.fr       */
+/*   Updated: 2023/05/24 07:22:37 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,11 @@ typedef struct s_img
 	char	*right_path;
 	int		w;
 	int		h;
+	void	*wall_img;
+	char	*wall;
+	int		w_bpp;
+	int		w_endian;
+	int		w_line;
 }	t_img;
 
 // typedef struct s_img
@@ -198,5 +203,6 @@ void	key_init(t_master *m);
 int		key_press(int keycode, t_master *m);
 int		key_release(int keycode, t_master *m);
 int		actions(t_master *m);
-
+void raycast(t_master *m);
+void draw_line_according_to_distance(t_master *m, float distance, int x);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/05/23 21:30:37 by yalee            ###   ########.fr       */
+/*   Updated: 2023/05/24 07:21:50 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ static void	ceiling_init(t_master *m)
 	free_funct(split);
 }
 
-static void	floor_init(t_master *m)
+static void floor_init(t_master *m)
 {
-	int		x;
-	int		y;
-	char	*pixel;
-	char 	**split;
+	int x;
+	int y;
+	char *pixel;
+	char **split;
 
 	m->img.floor_img = mlx_new_image(m->cub.mlx, MAP_WIDTH, MAP_HEIGHT / 2);
 	m->img.floor = mlx_get_data_addr(m->img.floor_img, &m->img.f_bpp, &m->img.f_line, &m->img.f_endian);
@@ -78,6 +78,28 @@ static void	floor_init(t_master *m)
 		y++;
 	}
 	free_funct(split);
+}
+
+static void wall_init(t_master *m)
+{
+	int		x;
+	int		y;
+	char 	*pixel;
+	
+	y = 0;
+	m->img.wall_img = mlx_new_image(m->cub.mlx, MAP_WIDTH, MAP_HEIGHT);
+	m->img.wall = mlx_get_data_addr(m->img.wall_img, &m->img.w_bpp, &m->img.w_line, &m->img.w_endian);
+	while (y < MAP_HEIGHT)
+	{
+		x = 0;
+		while (x < MAP_WIDTH)
+		{
+			pixel = m->img.wall + (y * m->img.c_line + x * (m->img.c_bpp / 8));
+			*(int *)pixel = create_trgb(225, 0, 0, 0);
+			x++;
+		}
+		y++;
+	}
 }
 
 static void	cockpit_init(t_master *m)
@@ -99,5 +121,7 @@ void	game(t_master *m)
 	init_game_vars(m);
 	ceiling_init(m);
 	floor_init(m);
+	wall_init(m);
 	cockpit_init(m);
+	raycast(m);
 }

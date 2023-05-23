@@ -6,7 +6,7 @@
 /*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/23 21:25:55 by yalee            ###   ########.fr       */
+/*   Updated: 2023/05/24 07:32:09 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,35 @@ int	key_release(int keycode, t_master *m)
 	return (0);
 }
 
-// void	draw_line_according_to_distance(t_master *m, float distance, int x)
-// {
-// 	int	i;
-// 	char *pixel;
+void	draw_line_according_to_distance(t_master *m, float distance, int x)
+{
+	int	i;
+	int y;
+	char *pixel;
 
-// 	i = 0;
-// 	pixel = 
-// 	while (i < 108)
-// 	{
-		
-// 	}
-// }
+	i = 0;
+	pixel = m->img.wall;
+	if (distance < 1)
+		distance = 1;
+	y = MAP_HEIGHT / 2 / distance;
+	while (i < 108)
+	{
+		pixel = m->img.wall + (y * m->img.w_line + x * (m->img.w_bpp / 8));
+		*(int *)pixel = create_trgb(0, 0, 0, 225 / distance);
+		// printf("draw\n");
+		y++;
+		i++;
+	}
+	while (y < MAP_HEIGHT)
+	{
+		pixel = m->img.wall + (y * m->img.w_line + x * (m->img.w_bpp / 8));
+		*(int *)pixel = create_trgb(225, 0, 0, 0);
+		// printf("draw\n");
+		y++;
+	}
+	// mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.ceiling_img, 0, 0);
+	// mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.floor_img, 0, MAP_HEIGHT / 2);
+}
 
 // set a dummy pos_x and pos_y to imitate the position of the player.
 // added a camera on the player position to simulate fov while ensuring that
@@ -92,6 +109,7 @@ void	raycast(t_master *m)
 	int		x_for_window;
 	
 	x_for_window = 0;
+	distance = 0.0;
 	dummy_posx = m->cub.posx;
 	dummy_posy = m->cub.posy;
 	camera_angle = m->cub.angle - 45;
@@ -99,6 +117,7 @@ void	raycast(t_master *m)
 	{
 		dummy_posx = m->cub.posx;
 		dummy_posy = m->cub.posy;
+		distance = 0.0;
 		while (m->map.layout[(int)(dummy_posy + cos(deg_to_rad(m->cub.angle)) * (SPEED * -1)) / 32][(int)(dummy_posx + sin(deg_to_rad(m->cub.angle)) * (SPEED)) / 32] != '1')
 		{
 			// same as
@@ -111,8 +130,10 @@ void	raycast(t_master *m)
 			dummy_posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 			distance += SPEED;
 		}
+		printf("distance: %f\n", distance);
+		// printf("wall\n");
 		// will draw a straight line of different colour
-		draw_line_according_to_distance(m, distance, x_for_window);
+		draw_line_according_to_distance(m, distance / 100, x_for_window);
 		// 90 / 1920
 		camera_angle += 0.046875;
 		x_for_window++;
@@ -134,6 +155,7 @@ static void	move_char(t_master *m, int direction)
 	}
 	else
 		return ;
+	raycast(m);
 	printf("posx:%f | posy:%f | angle:%f\n", m->cub.posx, m->cub.posy, m->cub.angle);
 }
 
@@ -160,8 +182,9 @@ int	actions(t_master *m)
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.floor_img, 0, MAP_HEIGHT / 2);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.halo, 0, 580);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.wheel, 573, 720);
-	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, m->cub.posx, m->cub.posy);
-	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img2, tmpx, tmpy);
+	// mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, m->cub.posx, m->cub.posy);
+	// mlx_put_image_to_window(m->cub.mlx, m->cub.win, img2, tmpx, tmpy);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.wall_img, 0, 0);
 	if (m->key.up)
 	{
 		move_char(m, FORWARD);
@@ -186,7 +209,5 @@ int	actions(t_master *m)
 	{
 		m->cub.angle += ANGLE;
 	}
-	// usleep(20000);
-	
 	return (0);
 }
