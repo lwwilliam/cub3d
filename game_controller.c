@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/22 13:35:50 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:55:37 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,18 @@ void	tmp_wall(t_master *m)
 
 	y = 0;
 	pixel = m->img.wall;
+	while (y < 1080)
+	{
+		x = 0;
+		while (x < 1920)
+		{
+			pixel = m->img.wall + (y * m->img.w_line + x * (m->img.w_bpp / 8));
+			*(int *)pixel = create_trgb(255, 0, 0, 0);
+			x++;
+		}
+		y++;
+	}
+	y = 0;
 	while (y < 50)
 	{
 		x = 0;
@@ -126,6 +138,14 @@ void	tmp_wall(t_master *m)
 			x++;
 		}
 		y++;
+	}
+	for (int i = 500; i < 900; i++)
+	{
+		for (int c = 500; c < 900; c++)
+		{
+		pixel = m->img.wall + (i * m->img.w_line + c * (m->img.w_bpp / 8));
+		*(int *)pixel = create_trgb(0, 255, 0 , 198);
+		}
 	}
 }
 
@@ -150,7 +170,7 @@ int	actions(t_master *m)
 	tmp_wall(m);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.ceiling_img, 0, 0);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.floor_img, 0, MAP_HEIGHT / 2);
-	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.wall_img, MAP_HEIGHT / 2, MAP_HEIGHT / 2);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.wall_img, 0, 0);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.halo, 0, 580);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->img.wheel, 573, 720);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, m->cub.posx, m->cub.posy);
