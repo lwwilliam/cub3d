@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/10 17:13:54 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/24 18:59:08 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int	actions(t_master *m)
 	void	*img2;
 	float	tmpx;
 	float	tmpy;
+	int		x;
 
 	tmpx = m->cub.posx;
 	tmpy = m->cub.posy;
@@ -136,9 +137,14 @@ int	actions(t_master *m)
 	img = mlx_xpm_file_to_image(m->cub.mlx, PLAYER, &m->map.img_width, &m->map.img_height);
 	img2 = mlx_xpm_file_to_image(m->cub.mlx, VIEW, &m->map.img_width, &m->map.img_height);
 	mlx_clear_window(m->cub.mlx, m->cub.win);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->ceiling->img_ptr, 0, 0);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->floor->img_ptr, 0, MAP_HEIGHT / 2);
 	create_map(m);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, m->cub.posx, m->cub.posy);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img2, tmpx, tmpy);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->cub.halo, 0, 580);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->cub.wheel, 573, 720);
+	m->cub.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->cub.up_path, &x, &x);
 	if (m->key.up)
 	{
 		move_char(m, FORWARD);
@@ -158,10 +164,12 @@ int	actions(t_master *m)
 	if (m->key.rot_left)
 	{
 		m->cub.angle -= ANGLE;
+		m->cub.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->cub.left_path, &x, &x);
 	}
 	if (m->key.rot_right)
 	{
 		m->cub.angle += ANGLE;
+		m->cub.wheel = mlx_xpm_file_to_image(m->cub.mlx, m->cub.right_path, &x, &x);
 	}
 	// usleep(20000);
 	
