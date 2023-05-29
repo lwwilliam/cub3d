@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/10 17:10:10 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/29 16:25:06 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <math.h>
+# include <limits.h>
 # include <unistd.h>
 # include <mlx.h>
 # include <stdlib.h>
@@ -33,8 +34,8 @@
 # define MAP_WIDTH 1920
 # define MAP_HEIGHT 1080
 
-# define RAYCAST 500
-# define FOV 90
+# define RAYCAST 60
+# define FOV 60
 # define SPEED 2
 # define ANGLE 2
 
@@ -89,6 +90,7 @@ typedef struct s_map
 	char	*ceiling_colour;
 	char	**grid;
 	int		height;
+	int		width;
 	int		posx;
 	int		posy;
 	char	direction;
@@ -131,6 +133,22 @@ typedef struct s_master
 	int		tmpy;
 }	t_master;
 
+typedef struct s_coord
+{
+	float	x_float;
+	float	y_float;
+	int		x_int;
+	int		y_int;
+}	t_coord;
+
+typedef struct s_vect
+{
+	t_coord	X;
+	t_coord	Y;
+	t_coord A;
+	t_coord B;
+}	t_vect;
+
 /* GAME_INIT */
 void	game(t_master *m);
 
@@ -167,5 +185,8 @@ void	key_init(t_master *m);
 int		key_press(int keycode, t_master *m);
 int		key_release(int keycode, t_master *m);
 int		actions(t_master *m);
+
+/* GAME RUN */
+void	raycast(t_master *m);
 
 #endif

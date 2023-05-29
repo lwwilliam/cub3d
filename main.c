@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 21:36:33 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/29 16:26:23 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	map_init(t_master *m, char *file)
 		free_funct(m->map.grid);
 		return (1);
 	}
+	
 	return (0);
 }
 
@@ -55,6 +56,7 @@ int	main(int ac, char **av)
 	game(&m);
 	win_init(&m);
 	key_init(&m);
+	raycast(&m);
 	mlx_hook(m.cub.win, 17, 0, close_window, &m);
 	mlx_hook(m.cub.win, 2, 1L<<0, key_press, &m);
 	mlx_key_hook(m.cub.win, key_release, &m);

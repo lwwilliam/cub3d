@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/10 17:13:54 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/29 17:42:04 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	move_char(t_master *m, int direction)
 	if (direction == FORWARD)
 	{
 		x += cos(deg_to_rad(m->cub.angle)) * (SPEED);
-		y += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+		y += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		if (m->map.grid[(int)y / BLOCK_SIZE][(int)x / BLOCK_SIZE] != '1')
 		{
 			m->cub.posx = x;
@@ -89,7 +89,7 @@ static void	move_char(t_master *m, int direction)
 	else if (direction == BACKWARD)
 	{
 		x += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-		y += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		y += sin(deg_to_rad(m->cub.angle)) * (SPEED);
 		if (m->map.grid[(int)y / BLOCK_SIZE][(int)x / BLOCK_SIZE] != '1')
 		{
 			m->cub.posx = x;
@@ -98,7 +98,7 @@ static void	move_char(t_master *m, int direction)
 	}
 	else if (direction == LEFT)
 	{
-		x += sin(deg_to_rad(m->cub.angle)) * (SPEED);
+		x += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		y += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 		if (m->map.grid[(int)y / BLOCK_SIZE][(int)x / BLOCK_SIZE] != '1')
 		{
@@ -108,7 +108,7 @@ static void	move_char(t_master *m, int direction)
 	}
 	else if (direction == RIGHT)
 	{
-		x += sin(deg_to_rad(m->cub.angle)) * (SPEED * -1);
+		x += sin(deg_to_rad(m->cub.angle)) * (SPEED);
 		y += cos(deg_to_rad(m->cub.angle)) * (SPEED);
 		if (m->map.grid[(int)y / BLOCK_SIZE][(int)x / BLOCK_SIZE] != '1')
 		{
@@ -118,7 +118,8 @@ static void	move_char(t_master *m, int direction)
 	}
 	else
 		return ;
-	printf("posx:%f | posy:%f | angle:%f\n", m->cub.posx, m->cub.posy, m->cub.angle);
+	raycast(m);
+	// printf("posx:%f | posy:%f | angle:%f\n", m->cub.posx, m->cub.posy, m->cub.angle);
 }
 
 int	actions(t_master *m)
@@ -130,8 +131,8 @@ int	actions(t_master *m)
 
 	tmpx = m->cub.posx;
 	tmpy = m->cub.posy;
-	tmpx += (BLOCK_SIZE * 1.1) * cos(deg_to_rad(m->cub.angle));
-	tmpy += (BLOCK_SIZE * 1.1) * sin(deg_to_rad(m->cub.angle));
+	tmpx += (BLOCK_SIZE * 1.1) * cos(deg_to_rad(m->cub.angle) * -1);
+	tmpy += (BLOCK_SIZE * 1.1) * sin(deg_to_rad(m->cub.angle) * -1);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	img = mlx_xpm_file_to_image(m->cub.mlx, PLAYER, &m->map.img_width, &m->map.img_height);
 	img2 = mlx_xpm_file_to_image(m->cub.mlx, VIEW, &m->map.img_width, &m->map.img_height);
@@ -155,13 +156,19 @@ int	actions(t_master *m)
 	{
 		move_char(m, RIGHT);
 	}
-	if (m->key.rot_left)
-	{
-		m->cub.angle -= ANGLE;
-	}
 	if (m->key.rot_right)
 	{
+		m->cub.angle -= ANGLE;
+		if (m->cub.angle < 0)
+			m->cub.angle = 360 - fabs(m->cub.angle);
+		raycast(m);
+	}
+	if (m->key.rot_left)
+	{
 		m->cub.angle += ANGLE;
+		if (m->cub.angle >= 360)
+			 m->cub.angle -= 360;
+		raycast(m);
 	}
 	// usleep(20000);
 	

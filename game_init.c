@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/05/09 19:12:15 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/29 18:21:13 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,36 @@
 
 //posx = cos(angle) * SPEED
 //pos𝑦 = sin(angle) * SPEED
+static void	find_player(t_master *m)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (m->map.grid[++j])
+	{
+		i = -1;
+		while (m->map.grid[j][++i])
+		{
+			if (m->map.grid[j][i] == 'N' || m->map.grid[j][i] == 'S' || \
+				m->map.grid[j][i] == 'E' || m->map.grid[j][i] == 'W')
+			{
+				m->cub.posx = (float)i;
+				m->cub.posy = (float)j;
+			}
+		}
+	}
+}
+// + (BLOCK_SIZE / 2);
 static void	init_game_vars(t_master *m)
 {
-	m->cub.posx = ((float)m->map.posx * (float)BLOCK_SIZE) + (BLOCK_SIZE / 2);
-	m->cub.posy = ((float)m->map.posy * (float)BLOCK_SIZE) + (BLOCK_SIZE / 2);
+	find_player(m);
+	m->cub.posx *= (float)BLOCK_SIZE;
+	m->cub.posy *= (float)BLOCK_SIZE;
 	if (m->map.direction == 'N')
-		m->cub.angle = 270;
-	else if (m->map.direction == 'S')
 		m->cub.angle = 90;
+	else if (m->map.direction == 'S')
+		m->cub.angle = 270;
 	else if (m->map.direction == 'E')
 		m->cub.angle = 0;
 	else if (m->map.direction == 'W')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 20:47:28 by lchew            ###   ########.fr       */
+/*   Updated: 2023/05/29 17:19:58 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ int	map_check(t_master *m)
 			if (m->map.grid[y][x] == 'N' || m->map.grid[y][x] == 'S'
 				|| m->map.grid[y][x] == 'E' || m->map.grid[y][x] == 'W')
 			{
-				m->map.posx = x;
-				m->map.posy = y;
 				m->map.direction = m->map.grid[y][x];
 			}
 			x++;
