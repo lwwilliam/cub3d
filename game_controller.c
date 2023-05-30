@@ -6,7 +6,7 @@
 /*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/24 07:32:09 by yalee            ###   ########.fr       */
+/*   Updated: 2023/05/30 18:08:53 by yalee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void	raycast(t_master *m)
 	float	camera_angle;
 	float	dummy_posx;
 	float	dummy_posy;
+	float	b4wall_posx;
+	float	b4wall_posy;
 	int		x_for_window;
 	
 	x_for_window = 0;
@@ -118,7 +120,7 @@ void	raycast(t_master *m)
 		dummy_posx = m->cub.posx;
 		dummy_posy = m->cub.posy;
 		distance = 0.0;
-		while (m->map.layout[(int)(dummy_posy + cos(deg_to_rad(m->cub.angle)) * (SPEED * -1)) / 32][(int)(dummy_posx + sin(deg_to_rad(m->cub.angle)) * (SPEED)) / 32] != '1')
+		while (m->map.layout[(int)(dummy_posy + cos(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE * -1)) / 32][(int)(dummy_posx + sin(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE)) / 32] != '1')
 		{
 			// same as
 			// if (direction == FORWARD && m->map.layout[(int)(m->cub.posy + cos(deg_to_rad(m->cub.angle)) * (SPEED * -1)) / 32][(int)(m->cub.posx + sin(deg_to_rad(m->cub.angle)) * (SPEED)) / 32] != '1')
@@ -126,10 +128,13 @@ void	raycast(t_master *m)
 			// 	m->cub.posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
 			// 	m->cub.posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
 			// }
-			dummy_posx += sin(deg_to_rad(m->cub.angle)) * (SPEED);
-			dummy_posy += cos(deg_to_rad(m->cub.angle)) * (SPEED * -1);
-			distance += SPEED;
+			b4wall_posx = dummy_posx;
+			b4wall_posy = dummy_posy;
+			dummy_posx += sin(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE);
+			dummy_posy += cos(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE * -1);
+			distance += BLOCK_SIZE;
 		}
+		distance += (float)sqrt(fabs((int)(dummy_posy + cos(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE * -1)) - b4wall_posy) * fabs((int)(dummy_posy + cos(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE * -1)) - b4wall_posy) + fabs((int)(dummy_posx + sin(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE)) - b4wall_posx) * fabs((int)(dummy_posx + sin(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE)) - b4wall_posx));
 		printf("distance: %f\n", distance);
 		// printf("wall\n");
 		// will draw a straight line of different colour
