@@ -137,21 +137,13 @@ typedef struct s_master
 	int		tmpy;
 }	t_master;
 
-typedef struct s_coord
+typedef struct s_ray
 {
-	double	x_double;
-	double	y_double;
-	int		x_int;
-	int		y_int;
-}	t_coord;
-
-typedef struct s_vect
-{
-	t_coord	X;
-	t_coord	Y;
-	t_coord A;
-	t_coord B;
-}	t_vect;
+	double	distx;
+	double	disty;
+	int		stepx;
+	int		stepy;
+}	t_ray;
 
 /* GAME_INIT */
 void	game(t_master *m);
