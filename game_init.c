@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/05/29 18:21:13 by wting            ###   ########.fr       */
+/*   Updated: 2023/07/01 17:04:15 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	find_player(t_master *m)
 			if (m->map.grid[j][i] == 'N' || m->map.grid[j][i] == 'S' || \
 				m->map.grid[j][i] == 'E' || m->map.grid[j][i] == 'W')
 			{
-				m->cub.posx = (float)i;
-				m->cub.posy = (float)j;
+				m->cub.posx = (double)i;
+				m->cub.posy = (double)j;
 			}
 		}
 	}
@@ -38,16 +38,26 @@ static void	find_player(t_master *m)
 static void	init_game_vars(t_master *m)
 {
 	find_player(m);
-	m->cub.posx *= (float)BLOCK_SIZE;
-	m->cub.posy *= (float)BLOCK_SIZE;
+	m->cub.posx += 0.5;
+	m->cub.posx += 0.5;
+	m->cub.planex = 0;
+	m->cub.planey = 0.6;
 	if (m->map.direction == 'N')
+	{
 		m->cub.angle = 90;
+	}
 	else if (m->map.direction == 'S')
+	{
 		m->cub.angle = 270;
+	}
 	else if (m->map.direction == 'E')
+	{
 		m->cub.angle = 0;
+	}
 	else if (m->map.direction == 'W')
+	{
 		m->cub.angle = 180;
+	}
 }
 
 void	game(t_master *m)

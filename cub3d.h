@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/29 16:25:06 by wting            ###   ########.fr       */
+/*   Updated: 2023/07/01 17:01:34 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define TRUE 1
 # define FALSE 0
 
-# define BLOCK_SIZE 32
-# define MAP_WIDTH 1920
+# define BLOCK_SIZE 1
+# define MAP_WIDTH 960
 # define MAP_HEIGHT 1080
 
 # define RAYCAST 60
@@ -111,9 +111,13 @@ typedef struct s_cub
 	void	*win;
 	int		floor_hex;
 	int		ceil_hex;
-	float	posx;
-	float	posy;
-	float	angle;
+	double	posx;
+	double	posy;
+	double	rayx;
+	double	rayy;
+	double	planex;
+	double	planey;
+	double	angle;
 }	t_cub;
 
 /* 
@@ -135,8 +139,8 @@ typedef struct s_master
 
 typedef struct s_coord
 {
-	float	x_float;
-	float	y_float;
+	double	x_double;
+	double	y_double;
 	int		x_int;
 	int		y_int;
 }	t_coord;
@@ -155,7 +159,7 @@ void	game(t_master *m);
 /* GAME_RUN */
 
 /* GAME_UTIL */
-float	 deg_to_rad(float degree);
+double	 deg_to_rad(double degree);
 
 /* MAIN */
 int		map_init(t_master *m, char *file);

@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/29 17:42:04 by wting            ###   ########.fr       */
+/*   Updated: 2023/06/08 13:27:26 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	key_release(int keycode, t_master *m)
 
 static void	move_char(t_master *m, int direction)
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 
 	x = m->cub.posx;
 	y = m->cub.posy;
@@ -126,8 +126,8 @@ int	actions(t_master *m)
 {
 	void	*img;
 	void	*img2;
-	float	tmpx;
-	float	tmpy;
+	double	tmpx;
+	double	tmpy;
 
 	tmpx = m->cub.posx;
 	tmpy = m->cub.posy;
