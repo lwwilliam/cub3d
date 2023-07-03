@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 17:56:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/09 20:42:12 by lchew            ###   ########.fr       */
+/*   Updated: 2023/07/03 22:31:02 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	map_assign(t_master *m, char *file)
 		assign_help(m, line);
 		free(line);
 	}
+	m->map.grid[m->map.height] = NULL;
 	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:59:39 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/29 17:19:58 by wting            ###   ########.fr       */
+/*   Updated: 2023/07/03 22:30:10 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	map_check(t_master *m)
 	while (m->map.grid[y])
 	{
 		x = 0;
+		printf("%s\n", m->map.grid[y]);
 		wall(m, m->map.grid[y], y);
 		while (m->map.grid[y][x])
 		{

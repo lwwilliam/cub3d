@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/07/01 17:04:15 by wting            ###   ########.fr       */
+/*   Updated: 2023/07/03 22:36:28 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	init_game_vars(t_master *m)
 {
 	find_player(m);
 	m->cub.posx += 0.5;
-	m->cub.posx += 0.5;
+	m->cub.posy += 0.5;
 	m->cub.planex = 0;
 	m->cub.planey = 0.6;
 	if (m->map.direction == 'N')
