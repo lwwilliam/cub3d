@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalee <yalee@student.42.fr.com>            +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/30 18:08:53 by yalee            ###   ########.fr       */
+/*   Updated: 2023/07/12 21:29:51 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,18 @@ void	raycast(t_master *m)
 	float	b4wall_posx;
 	float	b4wall_posy;
 	int		x_for_window;
+	float	*rays;
+	int 	i;
+	int		j;
 	
 	x_for_window = 0;
+	i = 0;
+	j = 0;
 	distance = 0.0;
 	dummy_posx = m->cub.posx;
 	dummy_posy = m->cub.posy;
 	camera_angle = m->cub.angle - 45;
+	rays = malloc(sizeof(float) * MAP_WIDTH);
 	while (camera_angle < m->cub.angle + 45)
 	{
 		dummy_posx = m->cub.posx;
@@ -135,14 +141,23 @@ void	raycast(t_master *m)
 			distance += BLOCK_SIZE;
 		}
 		distance += (float)sqrt(fabs((int)(dummy_posy + cos(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE * -1)) - b4wall_posy) * fabs((int)(dummy_posy + cos(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE * -1)) - b4wall_posy) + fabs((int)(dummy_posx + sin(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE)) - b4wall_posx) * fabs((int)(dummy_posx + sin(deg_to_rad(m->cub.angle)) * (BLOCK_SIZE)) - b4wall_posx));
-		printf("distance: %f\n", distance);
+		rays[i] = distance;
 		// printf("wall\n");
 		// will draw a straight line of different colour
 		draw_line_according_to_distance(m, distance / 100, x_for_window);
 		// 90 / 1920
 		camera_angle += 0.046875;
 		x_for_window++;
+		i++;
+		// printf("%i\n", i);
 	}
+	printf("rays: ");
+	while (j < i)
+	{
+		printf("%f, ", rays[j]);
+		j++;
+	}
+	printf("\n");
 }
 
 // added a map physics where player cant move trough walls
