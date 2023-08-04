@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/05/29 16:26:23 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 14:43:56 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	map_init(t_master *m, char *file)
 		free_funct(m->map.grid);
 		return (1);
 	}
-	
 	return (0);
 }
 
@@ -58,7 +57,7 @@ int	main(int ac, char **av)
 	key_init(&m);
 	raycast(&m);
 	mlx_hook(m.cub.win, 17, 0, close_window, &m);
-	mlx_hook(m.cub.win, 2, 1L<<0, key_press, &m);
+	mlx_hook(m.cub.win, 2, 1L << 0, key_press, &m);
 	mlx_key_hook(m.cub.win, key_release, &m);
 	mlx_loop_hook(m.cub.mlx, actions, &m);
 	mlx_loop(m.cub.mlx);

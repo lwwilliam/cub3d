@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/07/03 22:36:28 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 14:38:54 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,22 @@ static void	find_player(t_master *m)
 		}
 	}
 }
-// + (BLOCK_SIZE / 2);
+
 static void	init_game_vars(t_master *m)
 {
 	find_player(m);
 	m->cub.posx += 0.5;
 	m->cub.posy += 0.5;
-	m->cub.planex = 0;
-	m->cub.planey = 0.6;
 	if (m->map.direction == 'N')
-	{
-		m->cub.angle = 90;
-	}
+		m->cub.angle = M_PI + (M_PI / 2);
 	else if (m->map.direction == 'S')
-	{
-		m->cub.angle = 270;
-	}
+		m->cub.angle = M_PI / 2;
 	else if (m->map.direction == 'E')
-	{
 		m->cub.angle = 0;
-	}
 	else if (m->map.direction == 'W')
-	{
-		m->cub.angle = 180;
-	}
+		m->cub.angle = M_PI;
+	m->cub.pdx = cos(m->cub.angle) * SPEED;
+	m->cub.pdy = sin(m->cub.angle) * SPEED;
 }
 
 void	game(t_master *m)

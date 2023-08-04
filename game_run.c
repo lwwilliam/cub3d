@@ -6,111 +6,124 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/07/03 22:41:50 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 14:42:04 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	is_wall(t_master *m, int x, int y)
+void	init_hori(t_master *m, t_ray *ray)
 {
-	x /= BLOCK_SIZE;
-	y /= BLOCK_SIZE;
-	if (x < 0 || y < 0 || y >= m->map.height || x >= ft_strlen(m->map.grid[y]))
-		return (TRUE);
-	if (m->map.grid[y][x] == '1')
-		return (TRUE);
+	ray->atan = -1 / tan(ray->angle);
+	if (ray->angle > M_PI)
+	{
+		ray->rayy = (int)(m->cub.posy) - 0.001;
+		ray->rayx = (m->cub.posy - ray->rayy) * ray->atan + m->cub.posx;
+		ray->stepy = -1;
+		ray->stepx = -ray->stepy * ray->atan;
+	}
+	else if (ray->angle < M_PI)
+	{
+		ray->rayy = (int)m->cub.posy + 1.001;
+		ray->rayx = (m->cub.posy - ray->rayy) * ray->atan + m->cub.posx;
+		ray->stepy = 1;
+		ray->stepx = -ray->stepy * ray->atan;
+	}
 	else
-		return (FALSE);
+	{
+		ray->rayx = m->cub.posx;
+		ray->rayy = m->cub.posy;
+		ray->dof = 16;
+	}
 }
 
-void	check_hit(t_master *m, t_ray ray, double dx, double dy)
+void	run_hori(t_master *m, t_ray *ray)
 {
-	int	hit;
-	int	side;
-	hit = FALSE;
-	
-	while (hit == FALSE)
+	ray->dist_hori = 1000000;
+	while (ray->dof < 16)
 	{
-		if (ray.distx < ray.disty)
+		if (is_wall(m, (int)ray->rayx, (int)ray->rayy) == TRUE)
 		{
-			ray.distx += dx; 
-			side = NORTH_SOUTH;
+			ray->dof = 16;
+			ray->dist_hori = get_dist(m->cub.posx, m->cub.posy, ray->rayx, \
+				ray->rayy);
 		}
 		else
 		{
-			ray.distx += dy;
-			side = EAST_WEST;
+			ray->rayx += ray->stepx;
+			ray->rayy += ray->stepy;
+			++ray->dof;
 		}
-		hit = is_wall(m, (int)ray.distx, (int)ray.disty);
-	}
-	if (side == NORTH_SOUTH)
-	{
-		ray.distx -= dx;
-		// print_wall();
-		printf("dist:%f\n", ray.distx);
-	}
-	else
-	{
-		ray.disty -= dy;
-		// print_wall();
-		printf("dist:%f\n", ray.disty);
 	}
 }
 
-void	get_dist(t_master *m, double dx, double dy)
+void	init_verti(t_master *m, t_ray *ray)
 {
-	t_ray ray;
+	ray->atan = -tan(ray->angle);
+	if (ray->angle > (M_PI / 2) && ray->angle < (3 * M_PI / 2))
+	{
+		ray->rayx = (int)(m->cub.posx) - 0.001;
+		ray->rayy = (m->cub.posx - ray->rayx) * ray->atan + m->cub.posy;
+		ray->stepx = -1;
+		ray->stepy = -ray->stepx * ray->atan;
+	}
+	else if (ray->angle < (M_PI / 2) || ray->angle > (3 * M_PI / 2))
+	{
+		ray->rayx = (int)m->cub.posx + 1.001;
+		ray->rayy = (m->cub.posx - ray->rayx) * ray->atan + m->cub.posy;
+		ray->stepx = 1;
+		ray->stepy = -ray->stepx * ray->atan;
+	}
+	else
+	{
+		ray->rayx = m->cub.posx;
+		ray->rayy = m->cub.posy;
+		ray->dof = 16;
+	}
+}
 
-	if (m->cub.rayx < 0)
+void	run_verti(t_master *m, t_ray *ray)
+{
+	ray->dist_verti = 1000000;
+	while (ray->dof < 16)
 	{
-		ray.stepx = -1;
-		ray.distx = (m->cub.posx - (int)m->cub.posx) * dx;
+		if (is_wall(m, (int)ray->rayx, (int)ray->rayy) == TRUE)
+		{
+			ray->dof = 16;
+			ray->dist_verti = get_dist(m->cub.posx, m->cub.posy, ray->rayx, \
+				ray->rayy);
+		}
+		else
+		{
+			ray->rayx += ray->stepx;
+			ray->rayy += ray->stepy;
+			++ray->dof;
+		}
 	}
-	else
-	{
-		ray.stepx = 1;
-		ray.distx = (m->cub.posx + 1 - (int)m->cub.posx) * dx;
-	}
-	if (m->cub.rayy < 0)
-	{
-		ray.stepy = -1;
-		ray.disty = (m->cub.posy - (int)m->cub.posy) * dy;
-	}
-	else
-	{
-		ray.stepy = 1;
-		ray.disty = (m->cub.posy + 1 - (int)m->cub.posy) * dy;
-	}
-	check_hit(m, ray, dx, dy);
 }
 
 void	raycast(t_master *m)
 {
-	double	i;
-	double	camx;
-	double	dirx;
-	double	diry;
-	double	dx;
-	double	dy;
+	t_ray	ray;
+	int		i;
 
+	ray.angle = m->cub.angle - ((1 * M_PI / 180) * 30);
 	i = 0;
-	dirx = cos(deg_to_rad(m->cub.angle));
-	diry = sin(deg_to_rad(m->cub.angle));
-	if (dirx == 0)
-		dx = INT_MAX;
-	else
-		dx = fabs(1 / dirx);
-	if (diry == 0)
-		dy = INT_MAX;
-	else
-		dy = fabs(1 / diry);
-	printf("\n\n\n-------------------------\n");
-	while (i++ < MAP_WIDTH)
+	while (i < RAYCAST)
 	{
-		camx = 2 * i / (double)MAP_WIDTH - 1;
-		m->cub.rayx = dirx + m->cub.planex * camx;
-		m->cub.rayy = diry + m->cub.planey * camx;
-		get_dist(m, dx, dy);
+		ray.dof = 0;
+		init_hori(m, &ray);
+		run_hori(m, &ray);
+		ray.dof = 0;
+		init_verti(m, &ray);
+		run_verti(m, &ray);
+		if (ray.dist_hori > ray.dist_verti)
+			ray.final_dist = ray.dist_verti;
+		else
+			ray.final_dist = ray.dist_hori;
+		ray.final_dist = fisheye(m, &ray);
+		printf("dist: %f\n", ray.final_dist);
+		++i;
+		ray.angle += ((1 * M_PI / 180) * 60) / RAYCAST;
 	}
 }

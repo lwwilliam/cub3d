@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_boundary.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 20:03:50 by lchew             #+#    #+#             */
-/*   Updated: 2023/05/09 21:35:06 by lchew            ###   ########.fr       */
+/*   Updated: 2023/08/04 14:44:03 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	create_map(t_master *m)
 		{
 			if (m->map.grid[i][j] == '1')
 				mlx_put_image_to_window(m->cub.mlx, m->cub.win,
-					m->map.mini_wall, j * 32, i * 32);
+					m->map.mini_wall, j * BLOCK_SIZE, i * BLOCK_SIZE);
 			++j;
 		}
 		++i;
