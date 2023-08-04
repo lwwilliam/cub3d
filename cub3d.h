@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/04 14:41:52 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 18:33:33 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@
 # define FOV 60
 # define SPEED 0.1
 # define ANGLE 0.1
-# define NORTH_SOUTH 0
-# define EAST_WEST 1
+
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
 
 # define FORWARD 1
 # define BACKWARD 2
@@ -146,10 +149,16 @@ typedef struct s_ray
 	double	dist_verti;
 	double	stepx;
 	double	stepy;
+	int		east_west;
+	int		north_south;
+	double	scale_hori;
+	double	scale_verti;
 	double	mapp;
 	double	atan;
 	double	angle;
 	double	final_dist;
+	double	final_scale;
+	int		final_side;
 	int		dof;
 }			t_ray;
 
@@ -194,6 +203,6 @@ int			actions(t_master *m);
 double		fisheye(t_master *m, t_ray *ray);
 double		get_dist(double ax, double ay, double bx, double by);
 void		raycast(t_master *m);
-int			is_wall(t_master *m, int x, int y)
+int			is_wall(t_master *m, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/08/04 14:42:04 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 23:28:45 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,20 @@ void	init_hori(t_master *m, t_ray *ray)
 	if (ray->angle > M_PI)
 	{
 		ray->rayy = (int)(m->cub.posy) - 0.001;
+		ray->scale_hori = m->cub.posy - ray->rayy;
 		ray->rayx = (m->cub.posy - ray->rayy) * ray->atan + m->cub.posx;
 		ray->stepy = -1;
 		ray->stepx = -ray->stepy * ray->atan;
+		ray->north_south = NORTH;
 	}
 	else if (ray->angle < M_PI)
 	{
 		ray->rayy = (int)m->cub.posy + 1.001;
+		ray->scale_hori = m->cub.posy - ray->rayy;
 		ray->rayx = (m->cub.posy - ray->rayy) * ray->atan + m->cub.posx;
 		ray->stepy = 1;
 		ray->stepx = -ray->stepy * ray->atan;
+		ray->north_south = SOUTH;
 	}
 	else
 	{
@@ -55,6 +59,10 @@ void	run_hori(t_master *m, t_ray *ray)
 			++ray->dof;
 		}
 	}
+	if (ray->north_south == NORTH)
+		ray->scale_hori = ray->rayx - floor(ray->rayx);
+	else
+		ray->scale_hori = 1 - (ray->rayx - floor(ray->rayx));
 }
 
 void	init_verti(t_master *m, t_ray *ray)
@@ -66,6 +74,7 @@ void	init_verti(t_master *m, t_ray *ray)
 		ray->rayy = (m->cub.posx - ray->rayx) * ray->atan + m->cub.posy;
 		ray->stepx = -1;
 		ray->stepy = -ray->stepx * ray->atan;
+		ray->east_west = EAST;
 	}
 	else if (ray->angle < (M_PI / 2) || ray->angle > (3 * M_PI / 2))
 	{
@@ -73,6 +82,7 @@ void	init_verti(t_master *m, t_ray *ray)
 		ray->rayy = (m->cub.posx - ray->rayx) * ray->atan + m->cub.posy;
 		ray->stepx = 1;
 		ray->stepy = -ray->stepx * ray->atan;
+		ray->east_west = WEST;
 	}
 	else
 	{
@@ -83,7 +93,7 @@ void	init_verti(t_master *m, t_ray *ray)
 }
 
 void	run_verti(t_master *m, t_ray *ray)
-{
+{	
 	ray->dist_verti = 1000000;
 	while (ray->dof < 16)
 	{
@@ -100,6 +110,10 @@ void	run_verti(t_master *m, t_ray *ray)
 			++ray->dof;
 		}
 	}
+	if (ray->east_west == WEST)
+		ray->scale_verti = ray->rayy - floor(ray->rayy);
+	else
+		ray->scale_verti = 1 - (ray->rayy - floor(ray->rayy));
 }
 
 void	raycast(t_master *m)
@@ -111,6 +125,10 @@ void	raycast(t_master *m)
 	i = 0;
 	while (i < RAYCAST)
 	{
+		if (ray.angle < 0)
+			ray.angle += M_PI * 2;
+		if (ray.angle >= M_PI * 2)
+			ray.angle -= M_PI * 2;
 		ray.dof = 0;
 		init_hori(m, &ray);
 		run_hori(m, &ray);
@@ -118,11 +136,18 @@ void	raycast(t_master *m)
 		init_verti(m, &ray);
 		run_verti(m, &ray);
 		if (ray.dist_hori > ray.dist_verti)
+		{
 			ray.final_dist = ray.dist_verti;
+			ray.final_side = ray.east_west;
+			ray.final_scale = ray.scale_verti;
+		}
 		else
+		{
 			ray.final_dist = ray.dist_hori;
+			ray.final_side = ray.north_south;
+			ray.final_scale = ray.scale_hori;
+		}
 		ray.final_dist = fisheye(m, &ray);
-		printf("dist: %f\n", ray.final_dist);
 		++i;
 		ray.angle += ((1 * M_PI / 180) * 60) / RAYCAST;
 	}
