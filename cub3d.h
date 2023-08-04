@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/04 23:33:02 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 23:50:29 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ int			key_release(int keycode, t_master *m);
 int			actions(t_master *m);
 
 /* GAME RUN */
-double		fisheye(t_master *m, t_ray *ray);
+double		fisheye(t_master *m, t_ray *ray, double i);
 double		get_dist(double ax, double ay, double bx, double by);
 void		raycast(t_master *m);
 int			is_wall(t_master *m, int x, int y);

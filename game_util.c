@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:03:27 by wting             #+#    #+#             */
-/*   Updated: 2023/08/04 20:45:07 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/04 23:49:03 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ double	get_dist(double ax, double ay, double bx, double by)
 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
-double	fisheye(t_master *m, t_ray *ray)
+double	fisheye(t_master *m, t_ray *ray, double i)
 {
 	double	ret;
 
@@ -39,7 +39,7 @@ double	fisheye(t_master *m, t_ray *ray)
 		ret += 2 * M_PI;
 	if (ret > 2 * M_PI)
 		ret -= 2 * M_PI;
-	return (ray->final_dist * cos(ret));
+	return (i * cos(ret));
 }
 
 int	is_wall(t_master *m, int x, int y)

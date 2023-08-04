@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/08/04 23:32:30 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 23:55:56 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_hori(t_master *m, t_ray *ray)
 	ray->atan = -1 / tan(ray->angle);
 	if (ray->angle > M_PI)
 	{
-		ray->rayy = (int)(m->cub.posy) - 0.001;
+		ray->rayy = floor(m->cub.posy) - 0.000001;
 		ray->scale_hori = m->cub.posy - ray->rayy;
 		ray->rayx = (m->cub.posy - ray->rayy) * ray->atan + m->cub.posx;
 		ray->stepy = -1;
@@ -26,7 +26,7 @@ void	init_hori(t_master *m, t_ray *ray)
 	}
 	else if (ray->angle < M_PI)
 	{
-		ray->rayy = (int)m->cub.posy + 1.001;
+		ray->rayy = floor(m->cub.posy) + 1.000001;
 		ray->scale_hori = m->cub.posy - ray->rayy;
 		ray->rayx = (m->cub.posy - ray->rayy) * ray->atan + m->cub.posx;
 		ray->stepy = 1;
@@ -70,7 +70,7 @@ void	init_verti(t_master *m, t_ray *ray)
 	ray->atan = -tan(ray->angle);
 	if (ray->angle > (M_PI / 2) && ray->angle < (3 * M_PI / 2))
 	{
-		ray->rayx = (int)(m->cub.posx) - 0.001;
+		ray->rayx = floor(m->cub.posx) - 0.000001;
 		ray->rayy = (m->cub.posx - ray->rayx) * ray->atan + m->cub.posy;
 		ray->stepx = -1;
 		ray->stepy = -ray->stepx * ray->atan;
@@ -78,7 +78,7 @@ void	init_verti(t_master *m, t_ray *ray)
 	}
 	else if (ray->angle < (M_PI / 2) || ray->angle > (3 * M_PI / 2))
 	{
-		ray->rayx = (int)m->cub.posx + 1.001;
+		ray->rayx = floor(m->cub.posx) + 1.000001;
 		ray->rayy = (m->cub.posx - ray->rayx) * ray->atan + m->cub.posy;
 		ray->stepx = 1;
 		ray->stepy = -ray->stepx * ray->atan;
@@ -147,7 +147,8 @@ void	raycast(t_master *m)
 			ray.final_side = ray.north_south;
 			ray.final_scale = ray.scale_hori;
 		}
-		ray.final_dist = fisheye(m, &ray);
+		ray.final_dist = fisheye(m, &ray, ray.final_dist);
+		// printf("side: %d", ray.final_side);
 		rendering(&ray, m, i);
 		++i;
 		ray.angle += ((1 * M_PI / 180) * 60) / RAYCAST;
@@ -172,7 +173,15 @@ void rendering(t_ray *ray, t_master *m, int i)
 		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
 		{
 			pixel = m->test->img + (tmp * m->test->line + tmp2 * (m->test->bpp / 8));
-			*(int *)pixel = create_trgb(0, 0, 255, 0);
+			if (ray->final_side == NORTH)
+				*(int *)pixel = create_trgb(0, 0, 255, 0);
+			else if (ray->final_side == SOUTH)
+				*(int *)pixel = create_trgb(0, 255, 0, 0);
+			else if (ray->final_side == EAST)
+				*(int *)pixel = create_trgb(0, 0, 0, 255);
+			else
+				*(int *)pixel = create_trgb(0, 150, 150, 150);
+			
 		}
 		tmp2++;
 		y++;
@@ -186,7 +195,14 @@ void rendering(t_ray *ray, t_master *m, int i)
 		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
 		{
 			pixel = m->test->img + (tmp * m->test->line + tmp2 * (m->test->bpp / 8));
-			*(int *)pixel = create_trgb(0, 0, 255, 0);
+			if (ray->final_side == NORTH)
+				*(int *)pixel = create_trgb(0, 0, 255, 0);
+			else if (ray->final_side == SOUTH)
+				*(int *)pixel = create_trgb(0, 255, 0, 0);
+			else if (ray->final_side == EAST)
+				*(int *)pixel = create_trgb(0, 0, 0, 255);
+			else
+				*(int *)pixel = create_trgb(0, 150, 150, 150);
 		}
 		tmp2++;
 		y++;
