@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/04 14:41:52 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 23:17:15 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@
 # define MAP_WIDTH 1920
 # define MAP_HEIGHT 1080
 
-# define RAYCAST 480
+# define RAYCAST 1920
 # define FOV 60
-# define SPEED 0.1
-# define ANGLE 0.1
+# define DOF 25
+# define SPEED 0.2
+# define ANGLE 0.15
 # define NORTH_SOUTH 0
 # define EAST_WEST 1
 
@@ -121,6 +122,15 @@ typedef struct s_cub
 	double	angle;
 }			t_cub;
 
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*img;
+	int		bpp;
+	int		line;
+	int		endian;
+}	t_img;
+
 /*
 	struct for the master struct
 	cub:		// game struct
@@ -134,7 +144,10 @@ typedef struct s_master
 	t_cub	cub;
 	t_map	map;
 	t_key	key;
-	int		tmpx;
+	t_img	*ceiling;
+	t_img	*floor;
+	t_img	*test;
+	int		tmpx;	
 	int		tmpy;
 }			t_master;
 
@@ -194,6 +207,9 @@ int			actions(t_master *m);
 double		fisheye(t_master *m, t_ray *ray);
 double		get_dist(double ax, double ay, double bx, double by);
 void		raycast(t_master *m);
-int			is_wall(t_master *m, int x, int y)
+int			is_wall(t_master *m, int x, int y);
+
+void		rendering(t_ray *ray, t_master *m, int i);
+void		wall_reset(t_master *m);
 
 #endif

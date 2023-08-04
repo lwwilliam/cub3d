@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wting <wting@student.42.fr>                +#+  +:+       +#+         #
+#    By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 15:25:11 by lwilliam          #+#    #+#              #
-#    Updated: 2023/08/01 17:19:49 by wting            ###   ########.fr        #
+#    Updated: 2023/08/04 16:11:19 by lwilliam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ INC		= -I$(INC_DIR)
 
 # COMPILATION
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror #$(FSAN)
+CFLAGS		=	-Wall -Wextra -Werror $(FSAN)
 FSAN		= 	-fsanitize=address -g
 
 # LIBFT LIBRARY

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/08/04 14:38:40 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/04 22:44:54 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ static void	move_char(t_master *m, int direction)
 	}
 	else
 		return ;
+	wall_reset(m);
 	raycast(m);
 }
 
@@ -139,6 +140,9 @@ int	actions(t_master *m)
 	img2 = mlx_xpm_file_to_image(m->cub.mlx, VIEW, &m->map.img_width, \
 		&m->map.img_height);
 	mlx_clear_window(m->cub.mlx, m->cub.win);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->ceiling->img_ptr, 0, 0);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->floor->img_ptr, 0, MAP_HEIGHT / 2);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->test->img_ptr, 0, 0);
 	create_map(m);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, tmpx, tmpy);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img2, tmp2x, tmp2y);
@@ -165,6 +169,7 @@ int	actions(t_master *m)
 			m->cub.angle -= M_PI * 2;
 		m->cub.pdx = cos(m->cub.angle) * SPEED;
 		m->cub.pdy = sin(m->cub.angle) * SPEED;
+		wall_reset(m);
 		raycast(m);
 	}
 	if (m->key.rot_left)
@@ -174,6 +179,7 @@ int	actions(t_master *m)
 			m->cub.angle += M_PI * 2;
 		m->cub.pdx = cos(m->cub.angle) * SPEED;
 		m->cub.pdy = sin(m->cub.angle) * SPEED;
+		wall_reset(m);
 		raycast(m);
 	}
 	return (0);

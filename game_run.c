@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_run.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/08/04 14:42:04 by wting            ###   ########.fr       */
+/*   Created: 2023/05/02 18:51:DOF by wting             #+#    #+#             */
+/*   Updated: 2023/08/04 23:01:18 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ void	init_hori(t_master *m, t_ray *ray)
 	{
 		ray->rayx = m->cub.posx;
 		ray->rayy = m->cub.posy;
-		ray->dof = 16;
+		ray->dof = DOF;
 	}
 }
 
 void	run_hori(t_master *m, t_ray *ray)
 {
 	ray->dist_hori = 1000000;
-	while (ray->dof < 16)
+	while (ray->dof < DOF)
 	{
 		if (is_wall(m, (int)ray->rayx, (int)ray->rayy) == TRUE)
 		{
-			ray->dof = 16;
+			ray->dof = DOF;
 			ray->dist_hori = get_dist(m->cub.posx, m->cub.posy, ray->rayx, \
 				ray->rayy);
 		}
@@ -78,18 +78,18 @@ void	init_verti(t_master *m, t_ray *ray)
 	{
 		ray->rayx = m->cub.posx;
 		ray->rayy = m->cub.posy;
-		ray->dof = 16;
+		ray->dof = DOF;
 	}
 }
 
 void	run_verti(t_master *m, t_ray *ray)
 {
 	ray->dist_verti = 1000000;
-	while (ray->dof < 16)
+	while (ray->dof < DOF)
 	{
 		if (is_wall(m, (int)ray->rayx, (int)ray->rayy) == TRUE)
 		{
-			ray->dof = 16;
+			ray->dof = DOF;
 			ray->dist_verti = get_dist(m->cub.posx, m->cub.posy, ray->rayx, \
 				ray->rayy);
 		}
@@ -111,6 +111,10 @@ void	raycast(t_master *m)
 	i = 0;
 	while (i < RAYCAST)
 	{
+		if (ray.angle < 0)
+            ray.angle += M_PI * 2;
+        if (ray.angle >= M_PI * 2)
+            ray.angle -= M_PI * 2;
 		ray.dof = 0;
 		init_hori(m, &ray);
 		run_hori(m, &ray);
@@ -122,8 +126,50 @@ void	raycast(t_master *m)
 		else
 			ray.final_dist = ray.dist_hori;
 		ray.final_dist = fisheye(m, &ray);
-		printf("dist: %f\n", ray.final_dist);
+		rendering(&ray, m, i);
+		// printf("dist: %f\n", ray.final_dist);
 		++i;
 		ray.angle += ((1 * M_PI / 180) * 60) / RAYCAST;
+	}
+}
+
+//max DOF min 0.1
+void rendering(t_ray *ray, t_master *m, int i)
+{
+	int y;
+	int tmp;
+	int tmp2;
+	char *pixel;
+
+	y = 0;
+	tmp = MAP_HEIGHT / 2;
+	if (ray->final_dist < 0.2 )
+		ray->final_dist = 0.2;
+	while(y < ceil(MAP_HEIGHT / ray->final_dist))
+	{
+		tmp2 = i;
+		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
+		{
+			pixel = m->test->img + (tmp * m->test->line + tmp2 * (m->test->bpp / 8));
+			*(int *)pixel = create_trgb(0, 0, 255, 0);
+		}
+		tmp2++;
+		y++;
+		tmp = MAP_HEIGHT / 2 - y;
+	}
+	tmp = 0;
+	y = 0;
+	while(y < ceil(MAP_HEIGHT / ray->final_dist))
+	{
+		tmp2 = i;
+		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
+		{
+			pixel = m->test->img + (tmp * m->test->line + tmp2 * (m->test->bpp / 8));
+			*(int *)pixel = create_trgb(0, 0, 255, 0);
+		}
+		tmp2++;
+		y++;
+		tmp = y;
+		tmp += (MAP_HEIGHT / 2);
 	}
 }
