@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/08/08 17:53:33 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/08 21:50:41 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,28 +157,32 @@ void	raycast(t_master *m)
 
 void wall_print(t_ray *ray, t_master *m, int i)
 {
-	int y = 0;
+	int y = ceil(MAP_HEIGHT / 2) - (MAP_HEIGHT / ray->final_dist);
 	int x = 0;
 	int scale = 0;
 	int tmp = 0;
 	int tmp2 = 0;
 	char *pixel;
 	char *pixel2;
-	while(y < ceil(MAP_HEIGHT / ray->final_dist))
+	while(y < ceil(MAP_HEIGHT / 2))
 	{
 		tmp2 = i;
 		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
 		{
-			x = (m->north->height / (ceil(MAP_HEIGHT / ray->final_dist)));
-			pixel = m->wall->img + (tmp * m->wall->line + tmp2 * (m->wall->bpp / 8));
-			// *(int *)pixel = create_trgb(0, 0, 255, 0);
+			x = (m->north->height / (ceil(MAP_HEIGHT / ray->final_dist))) / 2;
+			pixel = m->wall->img + (y * m->wall->line + tmp2 * (m->wall->bpp / 8));
+
 			pixel2 = m->north->img + (scale * m->north->line + (int)(m->north->width * ray->final_scale) * (m->north->bpp / 8));
 			*(int *)pixel = mlx_get_color_value(m->cub.mlx, *(int *)pixel2);
+			// *(int *)pixel = create_trgb(0, 0, 255, 0);
+			
 		}
 		tmp2++;
-		y++;
+		if (y < 0)
+			y = 0;
 		scale = y + x / 2;
-		tmp = (MAP_HEIGHT / 2) - y;
+		
+		y++;
 	}
 }
 
@@ -187,7 +191,7 @@ void wall_print2(t_ray *ray, t_master *m, int i)
 	int y = 0;
 	int x = 0;
 	int scale = 0;
-	int tmp = 0;
+	int tmp = (MAP_HEIGHT / 2);
 	int tmp2 = 0;
 	char *pixel;
 	char *pixel2;
@@ -201,6 +205,7 @@ void wall_print2(t_ray *ray, t_master *m, int i)
 			// *(int *)pixel = create_trgb(0, 0, 255, 0);
 			pixel2 = m->north->img + (scale * m->north->line + (int)(m->north->width * ray->final_scale) * (m->north->bpp / 8));
 			*(int *)pixel = mlx_get_color_value(m->cub.mlx, *(int *)pixel2);
+			// *(int *)pixel = create_trgb(0, 0, 255, 0);
 		}
 		tmp2++;
 		y++;
