@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/04 23:50:29 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/07 18:01:43 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define MAP_HEIGHT 1080
 
 # define RAYCAST 1920
-# define FOV 60
+# define FOV 90
 # define SPEED 0.2
 # define ANGLE 0.15
 # define DOF 25
@@ -132,6 +132,8 @@ typedef struct s_img
 	int		bpp;
 	int		line;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 /*
@@ -149,7 +151,11 @@ typedef struct s_master
 	t_key	key;
 	t_img	*ceiling;
 	t_img	*floor;
-	t_img	*test;
+	t_img	*wall;
+	t_img	*north;
+	t_img	*east;
+	t_img	*south;
+	t_img	*west;
 	int		tmpx;	
 	int		tmpy;
 }			t_master;

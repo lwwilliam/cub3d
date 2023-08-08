@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/08/04 19:29:24 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/07 18:56:34 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void wall_reset(t_master *m)
 		x = 0;
 		while (x < MAP_WIDTH)
 		{
-			pixel = m->test->img + (y * m->test->line + x * (m->test->bpp / 8));
+			pixel = m->wall->img + (y * m->wall->line + x * (m->wall->bpp / 8));
 			*(int *)pixel = create_trgb(225, 0, 0, 0);
 			x++;
 		}
@@ -128,33 +128,39 @@ void wall_reset(t_master *m)
 
 void wall_init(t_master *m)
 {
-	m->test = malloc(sizeof(t_img));
-	m->test->img_ptr = mlx_new_image(m->cub.mlx, MAP_WIDTH, MAP_HEIGHT);
-	m->test->img = mlx_get_data_addr(m->test->img_ptr, &m->test->bpp, &m->test->line, &m->test->endian);
+	m->wall = malloc(sizeof(t_img));
+	m->wall->img_ptr = mlx_new_image(m->cub.mlx, MAP_WIDTH, MAP_HEIGHT);
+	m->wall->img = mlx_get_data_addr(m->wall->img_ptr, &m->wall->bpp, &m->wall->line, &m->wall->endian);
 	wall_reset(m);
 
-	// char	*pixel2;
-	// void *t_ptr;
-	// char *text_addr;
-	// int w, h = 0;
-	// y = 0;
-	// int bpp, line, endian = 0;
+	m->north = malloc(sizeof(t_img));
+	m->north->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, m->map.north_texture, &m->north->width, &m->north->height);
+	m->north->img = mlx_get_data_addr(m->north->img_ptr, &m->north->bpp, &m->north->line, &m->north->endian);
+	m->east = malloc(sizeof(t_img));
+	m->east->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, m->map.east_texture, &m->east->width, &m->east->height);
+	m->east->img = mlx_get_data_addr(m->east->img_ptr, &m->east->bpp, &m->east->line, &m->east->endian);
+	m->south = malloc(sizeof(t_img));
+	m->south->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, m->map.south_texture, &m->south->width, &m->south->height);
+	m->south->img = mlx_get_data_addr(m->south->img_ptr, &m->south->bpp, &m->south->line, &m->south->endian);
+	m->west = malloc(sizeof(t_img));
+	m->west->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, m->map.west_texture, &m->west->width, &m->west->height);
+	m->west->img = mlx_get_data_addr(m->west->img_ptr, &m->west->bpp, &m->west->line, &m->west->endian);
+
+	// char *pixel, *pixel2;
+	// int x, y = 0;
 	// int tmp = 0;
-	// t_ptr = mlx_xpm_file_to_image(m->cub.mlx, "./xpm/test-_1_.xpm", &w, &h);
-	// text_addr = mlx_get_data_addr(t_ptr, &bpp, &line, &endian);
-	// while (y < h)
-	// {
+	// while (y < m->north->height)
+	// {	
 	// 	x = 0;
-	// 	while (x < w)
+	// 	while(x < m->north->width)
 	// 	{
-	// 		pixel = m->test->img + (tmp * m->test->line + x * (m->test->bpp / 8));
-	// 		pixel2 = text_addr + (y * line + x * (bpp / 8));
+	// 		pixel = m->wall->img + (tmp * m->wall->line + x * (m->wall->bpp / 8));
+	// 		pixel2 = m->north->img + (y * m->north->line + x * (m->north->bpp / 8));
 	// 		*(int *)pixel = mlx_get_color_value(m->cub.mlx, *(int *)pixel2);
 	// 		x++;
 	// 	}
 	// 	y++;
 	// 	tmp = y;
-	// 	tmp += 100;
 	// }
 }
 

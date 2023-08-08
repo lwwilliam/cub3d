@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_run.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/08/04 23:55:56 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/08 17:53:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,58 +155,125 @@ void	raycast(t_master *m)
 	}
 }
 
+void wall_print(t_ray *ray, t_master *m, int i)
+{
+	int y = 0;
+	int x = 0;
+	int scale = 0;
+	int tmp = 0;
+	int tmp2 = 0;
+	char *pixel;
+	char *pixel2;
+	while(y < ceil(MAP_HEIGHT / ray->final_dist))
+	{
+		tmp2 = i;
+		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
+		{
+			x = (m->north->height / (ceil(MAP_HEIGHT / ray->final_dist)));
+			pixel = m->wall->img + (tmp * m->wall->line + tmp2 * (m->wall->bpp / 8));
+			// *(int *)pixel = create_trgb(0, 0, 255, 0);
+			pixel2 = m->north->img + (scale * m->north->line + (int)(m->north->width * ray->final_scale) * (m->north->bpp / 8));
+			*(int *)pixel = mlx_get_color_value(m->cub.mlx, *(int *)pixel2);
+		}
+		tmp2++;
+		y++;
+		scale = y + x / 2;
+		tmp = (MAP_HEIGHT / 2) - y;
+	}
+}
+
+void wall_print2(t_ray *ray, t_master *m, int i)
+{
+	int y = 0;
+	int x = 0;
+	int scale = 0;
+	int tmp = 0;
+	int tmp2 = 0;
+	char *pixel;
+	char *pixel2;
+	while(y < ceil(MAP_HEIGHT / ray->final_dist))
+	{
+		tmp2 = i;
+		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
+		{
+			x = (m->north->height / (ceil(MAP_HEIGHT / ray->final_dist)));
+			pixel = m->wall->img + (tmp * m->wall->line + tmp2 * (m->wall->bpp / 8));
+			// *(int *)pixel = create_trgb(0, 0, 255, 0);
+			pixel2 = m->north->img + (scale * m->north->line + (int)(m->north->width * ray->final_scale) * (m->north->bpp / 8));
+			*(int *)pixel = mlx_get_color_value(m->cub.mlx, *(int *)pixel2);
+		}
+		tmp2++;
+		y++;
+		scale = y + x / 2;
+		tmp = y;
+		tmp += (MAP_HEIGHT / 2);
+	}
+}
+
 //max DOF min 0.1
 void rendering(t_ray *ray, t_master *m, int i)
 {
 	int y;
 	int tmp;
 	int tmp2;
+	int colour;
 	char *pixel;
 
 	y = 0;
+	colour = 0;
 	tmp = MAP_HEIGHT / 2;
 	if (ray->final_dist < 0.2 )
 		ray->final_dist = 0.2;
-	while(y < ceil(MAP_HEIGHT / ray->final_dist))
-	{
-		tmp2 = i;
-		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
-		{
-			pixel = m->test->img + (tmp * m->test->line + tmp2 * (m->test->bpp / 8));
-			if (ray->final_side == NORTH)
-				*(int *)pixel = create_trgb(0, 0, 255, 0);
-			else if (ray->final_side == SOUTH)
-				*(int *)pixel = create_trgb(0, 255, 0, 0);
-			else if (ray->final_side == EAST)
-				*(int *)pixel = create_trgb(0, 0, 0, 255);
-			else
-				*(int *)pixel = create_trgb(0, 150, 150, 150);
-			
-		}
-		tmp2++;
-		y++;
-		tmp = MAP_HEIGHT / 2 - y;
-	}
-	tmp = 0;
-	y = 0;
-	while(y < ceil(MAP_HEIGHT / ray->final_dist))
-	{
-		tmp2 = i;
-		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
-		{
-			pixel = m->test->img + (tmp * m->test->line + tmp2 * (m->test->bpp / 8));
-			if (ray->final_side == NORTH)
-				*(int *)pixel = create_trgb(0, 0, 255, 0);
-			else if (ray->final_side == SOUTH)
-				*(int *)pixel = create_trgb(0, 255, 0, 0);
-			else if (ray->final_side == EAST)
-				*(int *)pixel = create_trgb(0, 0, 0, 255);
-			else
-				*(int *)pixel = create_trgb(0, 150, 150, 150);
-		}
-		tmp2++;
-		y++;
-		tmp = y;
-		tmp += (MAP_HEIGHT / 2);
-	}
+	wall_print(ray, m, i);
+	wall_print2(ray, m, i);
+	// while(y < ceil(MAP_HEIGHT / ray->final_dist))
+	// {
+	// 	tmp2 = i;
+	// 	if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
+	// 	{
+	// 		pixel = m->wall->img + (tmp * m->wall->line + tmp2 * (m->wall->bpp / 8));
+	// 		// printf("%lf \n", ray->final_scale);
+	// 		colour = 255;
+	// 		if (ray->final_scale >= 0.99)
+	// 		{
+	// 			colour = 0;
+	// 		}
+	// 		if (ray->final_side == NORTH)
+	// 		{
+	// 			// wall_print();
+	// 			*(int *)pixel = create_trgb(0, 0, colour, 0);
+	// 		}
+	// 		else if (ray->final_side == SOUTH)
+	// 			*(int *)pixel = create_trgb(0, colour, 0, 0);
+	// 		else if (ray->final_side == EAST)
+	// 			*(int *)pixel = create_trgb(0, 0, 0, colour);
+	// 		else
+	// 			*(int *)pixel = create_trgb(0, 150, 150, 150);
+	// 	}
+	// 	tmp2++;
+	// 	y++;
+	// 	tmp = MAP_HEIGHT / 2 - y;
+	// }
+	// tmp = 0;
+	// y = 0;
+	// while(y < ceil(MAP_HEIGHT / ray->final_dist))
+	// {
+	// 	tmp2 = i;
+	// 	if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
+	// 	{
+	// 		pixel = m->wall->img + (tmp * m->wall->line + tmp2 * (m->wall->bpp / 8));
+	// 		if (ray->final_side == NORTH)
+	// 			*(int *)pixel = create_trgb(0, 0, 255, 0);
+	// 		else if (ray->final_side == SOUTH)
+	// 			*(int *)pixel = create_trgb(0, 255, 0, 0);
+	// 		else if (ray->final_side == EAST)
+	// 			*(int *)pixel = create_trgb(0, 0, 0, 255);
+	// 		else
+	// 			*(int *)pixel = create_trgb(0, 150, 150, 150);
+	// 	}
+	// 	tmp2++;
+	// 	y++;
+	// 	tmp = y;
+	// 	tmp += (MAP_HEIGHT / 2);
+	// }
 }

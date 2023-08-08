@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/08/04 22:44:54 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/07 18:37:51 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,8 @@ int	actions(t_master *m)
 	mlx_clear_window(m->cub.mlx, m->cub.win);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->ceiling->img_ptr, 0, 0);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->floor->img_ptr, 0, MAP_HEIGHT / 2);
-	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->test->img_ptr, 0, 0);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->wall->img_ptr, 0, 0);
+	// mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->north->img_ptr, 0, 0);
 	create_map(m);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img, tmpx, tmpy);
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img2, tmp2x, tmp2y);
