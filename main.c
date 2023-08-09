@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/04 16:28:07 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:35:04 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int	close_window(t_master *m)
 {
 	mlx_destroy_window(m->cub.mlx, m->cub.win);
+	free(m->ceiling);
+	free(m->floor);
+	free(m->wall);
+	free(m->north);
+	free(m->east);
+	free(m->south);
+	free(m->west);
 	exit_err(m, "Closing Window...\n", 1);
 	return (0);
 }
@@ -71,5 +78,6 @@ void	exit_err(t_master *m, char *message, int code)
 	ft_putstr_fd("\033[0m", 2);
 	if (code == 1)
 		free_funct(m->map.grid);
+	// system("leaks cub3d");
 	exit(0);
 }
