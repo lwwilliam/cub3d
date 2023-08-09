@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/09 15:00:23 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:14:25 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,9 @@ typedef struct s_ray
 	double	final_scale;
 	int		final_side;
 	int		dof;
+	int		i;
+	char	*pixel;
+	char	*pixel2;
 }			t_ray;
 
 /* GAME_INIT */
@@ -224,7 +227,8 @@ double		get_dist(double ax, double ay, double bx, double by);
 void		raycast(t_master *m);
 int			is_wall(t_master *m, int x, int y);
 
-void		rendering(t_ray *ray, t_master *m, int i);
+void		rendering(t_ray *ray, t_master *m);
 void		wall_reset(t_master *m);
+void		wall_print(t_ray *ray, t_master *m);
 
 #endif

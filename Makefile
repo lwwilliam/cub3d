@@ -6,7 +6,7 @@
 #    By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 15:25:11 by lwilliam          #+#    #+#              #
-#    Updated: 2023/08/08 21:40:33 by lwilliam         ###   ########.fr        #
+#    Updated: 2023/08/09 17:14:37 by lwilliam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME	=	cub3d
 # MANDATORY SOURCE CODE
 SRC_DIR = ./
 SRC		=	main.c map_handle.c free.c map_check.c map_util.c game_init.c \
-			game_run.c game_util.c game_controller.c map_boundary.c
+			game_run.c game_util.c game_controller.c map_boundary.c wall_up.c
 OBJ_DIR = ./obj/
 OBJ		= $(SRC:%.c=$(OBJ_DIR)%.o)
 

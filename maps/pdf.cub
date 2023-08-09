@@ -1,7 +1,7 @@
-NO ./xpm/540.xpm
-SO ./xpm/green.xpm
-WE ./xpm/test-_1_.xpm
-EA ./xpm/test-_1_.xpm
+NO ./xpm/wood.xpm
+SO ./xpm/sand.xpm
+WE ./xpm/stone.xpm
+EA ./xpm/dirt.xpm
 
 F 100,100,100
 C 0,255,255
