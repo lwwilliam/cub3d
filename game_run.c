@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/08/09 17:25:00 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:10:46 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,59 +306,6 @@ void rendering(t_ray *ray, t_master *m)
 	y = 0;
 	colour = 0;
 	tmp = MAP_HEIGHT / 2;
-	if (ray->final_dist < 0.2 )
-		ray->final_dist = 0.2;
 	wall_print(ray, m);
 	wall_print2(ray, m);
-
-	// while(y < ceil(MAP_HEIGHT / ray->final_dist))
-	// {
-	// 	tmp2 = i;
-	// 	if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
-	// 	{
-	// 		pixel = m->wall->img + (tmp * m->wall->line + tmp2 * (m->wall->bpp / 8));
-	// 		// printf("%lf \n", ray->final_scale);
-	// 		colour = 255;
-	// 		if (ray->final_scale >= 0.99)
-	// 		{
-	// 			colour = 0;
-	// 		}
-	// 		if (ray->final_side == NORTH)
-	// 		{
-	// 			// wall_print();
-	// 			*(int *)pixel = create_trgb(0, 0, colour, 0);
-	// 		}
-	// 		else if (ray->final_side == SOUTH)
-	// 			*(int *)pixel = create_trgb(0, colour, 0, 0);
-	// 		else if (ray->final_side == EAST)
-	// 			*(int *)pixel = create_trgb(0, 0, 0, colour);
-	// 		else
-	// 			*(int *)pixel = create_trgb(0, 150, 150, 150);
-	// 	}
-	// 	tmp2++;
-	// 	y++;
-	// 	tmp = MAP_HEIGHT / 2 - y;
-	// }
-	// tmp = 0;
-	// y = 0;
-	// while(y < ceil(MAP_HEIGHT / ray->final_dist))
-	// {
-	// 	tmp2 = i;
-	// 	if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
-	// 	{
-	// 		pixel = m->wall->img + (tmp * m->wall->line + tmp2 * (m->wall->bpp / 8));
-	// 		if (ray->final_side == NORTH)
-	// 			*(int *)pixel = create_trgb(0, 0, 255, 0);
-	// 		else if (ray->final_side == SOUTH)
-	// 			*(int *)pixel = create_trgb(0, 255, 0, 0);
-	// 		else if (ray->final_side == EAST)
-	// 			*(int *)pixel = create_trgb(0, 0, 0, 255);
-	// 		else
-	// 			*(int *)pixel = create_trgb(0, 150, 150, 150);
-	// 	}
-	// 	tmp2++;
-	// 	y++;
-	// 	tmp = y;
-	// 	tmp += (MAP_HEIGHT / 2);
-	// }
 }
