@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_up.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:13:29 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/09 17:18:57 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:34:07 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	north_wall(t_ray *ray, t_master *m, int tmp, int tmp2)
 	x = 0;
 	test = 0;
 	test2 = 0;
-	while(y < ceil(MAP_HEIGHT / 2))
+	while (y < ceil(MAP_HEIGHT / 2))
 	{
 		tmp2 = ray->i;
 		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
@@ -51,7 +51,7 @@ void	east_wall(t_ray *ray, t_master *m, int tmp, int tmp2)
 	x = 0;
 	test = 0;
 	test2 = 0;
-	while(y < ceil(MAP_HEIGHT / 2))
+	while (y < ceil(MAP_HEIGHT / 2))
 	{
 		tmp2 = ray->i;
 		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
@@ -79,7 +79,7 @@ void	south_wall(t_ray *ray, t_master *m, int tmp, int tmp2)
 	x = 0;
 	test = 0;
 	test2 = 0;
-	while(y < ceil(MAP_HEIGHT / 2))
+	while (y < ceil(MAP_HEIGHT / 2))
 	{
 		tmp2 = ray->i;
 		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)

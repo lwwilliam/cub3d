@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/09 17:35:04 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:32:09 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ void	exit_err(t_master *m, char *message, int code)
 	ft_putstr_fd("\033[0m", 2);
 	if (code == 1)
 		free_funct(m->map.grid);
-	// system("leaks cub3d");
 	exit(0);
 }

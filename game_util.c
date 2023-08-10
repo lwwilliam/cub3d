@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:03:27 by wting             #+#    #+#             */
-/*   Updated: 2023/08/04 23:57:42 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/09 18:26:59 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ double	fisheye(t_master *m, t_ray *ray, double i)
 int	is_wall(t_master *m, int x, int y)
 {
 	if (x < 0 || y < 0 || y >= m->map.height || x >= ft_strlen(m->map.grid[y]))
-		return (FALSE);
+		return (ERROR);
 	if (m->map.grid[y][x] == '1')
 		return (TRUE);
 	else

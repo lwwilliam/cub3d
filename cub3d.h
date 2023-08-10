@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/09 17:14:25 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/09 22:01:26 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define MAP_HEIGHT 1080
 
 # define RAYCAST 1920
-# define FOV 90
+# define FOV 60
 # define SPEED 0.2
 # define ANGLE 0.15
 # define DOF 25

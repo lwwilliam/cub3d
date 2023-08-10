@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_run.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:51:16 by wting             #+#    #+#             */
-/*   Updated: 2023/08/09 18:10:46 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:31:08 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,29 @@ void	run_verti(t_master *m, t_ray *ray)
 		ray->scale_verti = 1 - (ray->rayy - floor(ray->rayy));
 }
 
+void	assign_final(t_master *m, t_ray *ray)
+{
+	if (ray->dist_hori > ray->dist_verti)
+	{
+		ray->final_dist = ray->dist_verti;
+		ray->final_side = ray->east_west;
+		ray->final_scale = ray->scale_verti;
+	}
+	else
+	{
+		ray->final_dist = ray->dist_hori;
+		ray->final_side = ray->north_south;
+		ray->final_scale = ray->scale_hori;
+	}
+	ray->final_dist = fisheye(m, ray, ray->final_dist);
+}
+
 void	raycast(t_master *m)
 {
 	t_ray	ray;
 	int		i;
 
-	ray.angle = m->cub.angle - ((1 * M_PI / 180) * 30);
+	ray.angle = m->cub.angle - ((1 * M_PI / 180) * (FOV / 2));
 	i = 0;
 	while (i < RAYCAST)
 	{
@@ -135,27 +152,20 @@ void	raycast(t_master *m)
 		ray.dof = 0;
 		init_verti(m, &ray);
 		run_verti(m, &ray);
-		if (ray.dist_hori > ray.dist_verti)
-		{
-			ray.final_dist = ray.dist_verti;
-			ray.final_side = ray.east_west;
-			ray.final_scale = ray.scale_verti;
-		}
-		else
-		{
-			ray.final_dist = ray.dist_hori;
-			ray.final_side = ray.north_south;
-			ray.final_scale = ray.scale_hori;
-		}
-		ray.final_dist = fisheye(m, &ray, ray.final_dist);
+		assign_final(m, &ray);
 		ray.i = i;
-		rendering(&ray, m);
 		++i;
+		rendering(&ray, m);
 		ray.angle += ((1 * M_PI / 180) * 60) / RAYCAST;
 	}
 }
 
-void north_wall2(t_ray *ray, t_master *m, int tmp, int tmp2)
+void	north_wall2_helper()
+{
+	
+}
+
+void	north_wall2(t_ray *ray, t_master *m, int tmp, int tmp2)
 {
 	int		y;
 	int		x;
@@ -166,7 +176,7 @@ void north_wall2(t_ray *ray, t_master *m, int tmp, int tmp2)
 	x = m->north->height;
 	test2 = x;
 	x = x / 2;
-	while(y < ceil(MAP_HEIGHT / ray->final_dist) / 3)
+	while (y < ceil(MAP_HEIGHT / ray->final_dist) / 3)
 	{
 		tmp2 = ray->i;
 		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
@@ -196,7 +206,7 @@ void east_wall2(t_ray *ray, t_master *m, int tmp, int tmp2)
 	x = m->east->height;
 	test2 = x;
 	x = x / 2;
-	while(y < ceil(MAP_HEIGHT / ray->final_dist) / 3)
+	while (y < ceil(MAP_HEIGHT / ray->final_dist) / 3)
 	{
 		tmp2 = ray->i;
 		if (y < MAP_HEIGHT && y >= 0 && tmp < MAP_HEIGHT && tmp >= 0)
@@ -295,13 +305,13 @@ void wall_print2(t_ray *ray, t_master *m)
 }
 
 //max DOF min 0.1
-void rendering(t_ray *ray, t_master *m)
+void	rendering(t_ray *ray, t_master *m)
 {
-	int y;
-	int tmp;
-	int tmp2;
-	int colour;
-	char *pixel;
+	int		y;
+	int		tmp;
+	int		tmp2;
+	int		colour;
+	char	*pixel;
 
 	y = 0;
 	colour = 0;
