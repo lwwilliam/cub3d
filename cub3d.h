@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/09 22:01:26 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/10 17:27:28 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,11 @@ typedef struct s_ray
 	int		i;
 	char	*pixel;
 	char	*pixel2;
+
+	int		tmp;
+	int		tmp2;
+	int		x;
+	int		y;
 }			t_ray;
 
 /* GAME_INIT */
@@ -216,19 +221,32 @@ void		exit_free(t_master *master);
 void		init_map_vars(t_master *m);
 
 /* GAME CONTROLLER */
+int			actions(t_master *m);
+
+/* KEY ACTIONS*/
 void		key_init(t_master *m);
 int			key_press(int keycode, t_master *m);
 int			key_release(int keycode, t_master *m);
-int			actions(t_master *m);
 
 /* GAME RUN */
 double		fisheye(t_master *m, t_ray *ray, double i);
 double		get_dist(double ax, double ay, double bx, double by);
-void		raycast(t_master *m);
 int			is_wall(t_master *m, int x, int y);
+void		init_hori(t_master *m, t_ray *ray);
+void		run_hori(t_master *m, t_ray *ray);
+void		init_verti(t_master *m, t_ray *ray);
+void		run_verti(t_master *m, t_ray *ray);
+void		assign_final(t_master *m, t_ray *ray);
 
+/* RENDER / RAYCAST*/
+void		raycast(t_master *m);
 void		rendering(t_ray *ray, t_master *m);
 void		wall_reset(t_master *m);
 void		wall_print(t_ray *ray, t_master *m);
+void		wall_print2(t_ray *ray, t_master *m);
+
+/* IMAGE INIT */
+void		init_images(t_master *m);
+void		wall_init(t_master *m);
 
 #endif
