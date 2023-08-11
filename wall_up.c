@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:13:29 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/10 17:14:27 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:55:22 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,22 @@ void	wall_print(t_ray *ray, t_master *m)
 		wall_render_up(ray, m, m->south);
 	else if (ray->final_side == WEST)
 		wall_render_up(ray, m, m->west);
+}
+
+void	init_cockpit(t_master *m)
+{
+	char	*halo_path;
+	int		img_width;
+	int		img_height;
+
+	m->halo = malloc(sizeof(t_img));
+	m->wheel = malloc(sizeof(t_img));
+	halo_path = "./xpm/f1.xpm";
+	m->cub.up_path = "./xpm/up.xpm";
+	m->cub.left_path = "./xpm/left.xpm";
+	m->cub.right_path = "./xpm/right.xpm";
+	m->halo->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, halo_path, \
+		&img_width, &img_height);
+	m->wheel->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, m->cub.up_path, \
+		&img_width, &img_height);
 }

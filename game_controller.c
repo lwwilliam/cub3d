@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:48:58 by lchew             #+#    #+#             */
-/*   Updated: 2023/08/10 17:16:15 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:03:27 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void	map(t_master *m)
 	mlx_put_image_to_window(m->cub.mlx, m->cub.win, img2, tmpx + \
 		(BLOCK_SIZE * 1.1) * cos(m->cub.angle), \
 		tmpy + (BLOCK_SIZE * 1.1) * sin(m->cub.angle));
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->halo->img_ptr, \
+		0, 580);
+	mlx_put_image_to_window(m->cub.mlx, m->cub.win, m->wheel->img_ptr, \
+		573, 720);
 }
 
 void	rotate(t_master *m, int *count)
@@ -99,6 +103,8 @@ void	rotate(t_master *m, int *count)
 		m->cub.pdx = cos(m->cub.angle) * SPEED;
 		m->cub.pdy = sin(m->cub.angle) * SPEED;
 		++(*count);
+		m->wheel->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, \
+			m->cub.right_path, &m->wheel->width, &m->wheel->height);
 	}
 	if (m->key.rot_left)
 	{
@@ -108,6 +114,8 @@ void	rotate(t_master *m, int *count)
 		m->cub.pdx = cos(m->cub.angle) * SPEED;
 		m->cub.pdy = sin(m->cub.angle) * SPEED;
 		++(*count);
+		m->wheel->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, m->cub.left_path, \
+			&m->wheel->width, &m->wheel->height);
 	}
 }
 
@@ -116,6 +124,8 @@ int	actions(t_master *m)
 	int	count;
 
 	map(m);
+	m->wheel->img_ptr = mlx_xpm_file_to_image(m->cub.mlx, \
+		m->cub.up_path, &m->wheel->width, &m->wheel->height);
 	count = 0;
 	if (m->key.up)
 		move_char(m, FORWARD, &count);

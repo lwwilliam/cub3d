@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:53:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/10 15:32:09 by wting            ###   ########.fr       */
+/*   Updated: 2023/08/11 15:06:23 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	close_window(t_master *m)
 	free(m->east);
 	free(m->south);
 	free(m->west);
+	free(m->halo);
+	free(m->wheel);
 	exit_err(m, "Closing Window...\n", 1);
 	return (0);
 }

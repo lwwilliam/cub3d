@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:41:15 by wting             #+#    #+#             */
-/*   Updated: 2023/08/10 15:39:13 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:55:34 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,5 @@ void	game(t_master *m)
 	init_ceiling(m);
 	init_floor(m);
 	wall_init(m);
+	init_cockpit(m);
 }

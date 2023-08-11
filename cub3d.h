@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:49:46 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/10 17:27:28 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:49:04 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ typedef struct s_cub
 	double	pdx;
 	double	pdy;
 	double	angle;
+	char	*up_path;
+	char	*left_path;
+	char	*right_path;
 }			t_cub;
 
 typedef struct s_img
@@ -156,6 +159,8 @@ typedef struct s_master
 	t_img	*east;
 	t_img	*south;
 	t_img	*west;
+	t_img	*halo;
+	t_img	*wheel;
 	int		tmpx;	
 	int		tmpy;
 }			t_master;
@@ -248,5 +253,6 @@ void		wall_print2(t_ray *ray, t_master *m);
 /* IMAGE INIT */
 void		init_images(t_master *m);
 void		wall_init(t_master *m);
+void		init_cockpit(t_master *m);
 
 #endif

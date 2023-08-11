@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:41:21 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/08/09 17:29:11 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:01:35 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	exit_free(t_master *master)
 	free(master->east);
 	free(master->south);
 	free(master->west);
+	free(master->halo);
+	free(master->wheel);
 	system("leaks cub3d");
 	exit(0);
 }
