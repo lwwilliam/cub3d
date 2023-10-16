@@ -14,9 +14,12 @@ make
 
 ## Usage
 
-```bash
-# format: ./cub3d {map directory}
+
+format: ./cub3d {map directory}
+
 example:
+
+```bash
 ./cub3d maps/pdf.cub
 ```
 
