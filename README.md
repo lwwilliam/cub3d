@@ -39,7 +39,7 @@ Last segment is the 2d map itself. '1' representing a wall, '0' representing emp
 
 Dark blue blocks: Wall blocks
 
-Yellow dot: player poosition
+Yellow dot: player position
 
 Red dot: player view direction
 
