@@ -25,7 +25,7 @@ example:
 
 ## Map
 
-![Screenshot of an example of the map](images/Screenshot 2023-10-16 at 18.05.36.png)
+![Screenshot of an example of the map](images/Screenshot_2023-10-16_at_18.05.36.png)
 
 First segment incudes the path for wall textures along with the direction of the wall texture.
 
